@@ -24,7 +24,15 @@ library DayCount {
         uint256 doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
         uint256 mp = (5 * doy + 2) / 153;
         day = doy - (153 * mp + 2) / 5 + 1;
-        month = mp + (mp < 10 ? 3 : -9);
-        year += month <= 2 ? 1 : 0;
+        uint256 m;
+        if (mp < 10) {
+            m = mp + 3;
+        } else {
+            m = mp - 9;
+        }
+        month = m;
+        if (month <= 2) {
+            year += 1;
+        }
     }
 }
