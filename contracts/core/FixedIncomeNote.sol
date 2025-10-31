@@ -21,25 +21,25 @@ contract FixedIncomeNote is Initializable, AdminRoles {
     event CouponAccrued(uint256 amount, uint256 asOfDate);
 
     function initialize(
-        address _admin,
-        IERC20 _cashToken,
-        ITransferAgent _transferAgent,
-        IRegistry _registry,
-        uint256 _couponRateBps,
-        DayCount.Convention _convention
+        address admin,
+        IERC20 cashTokenAddress,
+        ITransferAgent transferAgentAddress,
+        IRegistry registryAddress,
+        uint256 couponRateBpsValue,
+        DayCount.Convention convention
     ) public virtual initializer {
-        require(_admin != address(0), "admin required");
-        __AdminRoles_init(_admin);
-        _grantTransferAgent(address(_transferAgent));
-        _grantPauser(_admin);
-        _grantUpgrader(_admin);
-        _grantIssuer(_admin);
+        require(admin != address(0), "admin required");
+        initializeAdminRoles(admin);
+        _grantTransferAgent(address(transferAgentAddress));
+        _grantPauser(admin);
+        _grantUpgrader(admin);
+        _grantIssuer(admin);
 
-        cashToken = _cashToken;
-        transferAgent = _transferAgent;
-        registry = _registry;
-        couponRateBps = _couponRateBps;
-        dayCountConvention = _convention;
+        cashToken = cashTokenAddress;
+        transferAgent = transferAgentAddress;
+        registry = registryAddress;
+        couponRateBps = couponRateBpsValue;
+        dayCountConvention = convention;
     }
 
     function accrueCoupon(uint256 notional, uint256 fromDate, uint256 toDate) external onlyIssuer {

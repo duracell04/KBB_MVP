@@ -10,14 +10,14 @@ import "../core/DayCount.sol";
 
 contract UUPSUpgradeableNote is FixedIncomeNote, UUPSUpgradeable {
     function initialize(
-        address _admin,
-        IERC20 _cashToken,
-        ITransferAgent _transferAgent,
-        IRegistry _registry,
-        uint256 _couponRateBps,
-        DayCount.Convention _convention
+        address admin,
+        IERC20 cashTokenAddress,
+        ITransferAgent transferAgentAddress,
+        IRegistry registryAddress,
+        uint256 couponRateBpsValue,
+        DayCount.Convention convention
     ) public override initializer {
-        FixedIncomeNote.initialize(_admin, _cashToken, _transferAgent, _registry, _couponRateBps, _convention);
+        FixedIncomeNote.initialize(admin, cashTokenAddress, transferAgentAddress, registryAddress, couponRateBpsValue, convention);
     }
 
     function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}

@@ -8,7 +8,7 @@ import "../interfaces/IRegistry.sol";
 import "../core/DayCount.sol";
 
 contract TestNoteProperties {
-    FixedIncomeNote internal note;
+    FixedIncomeNote internal immutable note;
 
     constructor() {
         note = new FixedIncomeNote();

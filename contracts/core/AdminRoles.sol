@@ -9,7 +9,7 @@ abstract contract AdminRoles is AccessControlUpgradeable {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");
 
-    function __AdminRoles_init(address admin) internal onlyInitializing {
+    function initializeAdminRoles(address admin) internal onlyInitializing {
         __AccessControl_init();
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
     }
