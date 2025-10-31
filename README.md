@@ -14,17 +14,17 @@ Bank-settled, token-registered **fixed-income note** (ERC-3643-compatible) with 
 Install Foundry deps locally:
 ```bash
 forge install OpenZeppelin/openzeppelin-contracts OpenZeppelin/openzeppelin-contracts-upgradeable foundry-rs/forge-std
-
+```
 
 Install ops deps:
-
+```bash
 npm install
-
+```
 
 Run tests:
-
+```bash
 forge test
-
+```
 
 #### `CONTRIBUTING.md`
 ```markdown
@@ -42,3 +42,4 @@ forge test
 - Clear description + rationale.
 - Link related issues/design docs.
 - CI must pass (Foundry, Slither, Echidna, Semgrep).
+```
