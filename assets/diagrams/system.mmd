@@ -1,0 +1,8 @@
+%% Mermaid (placeholder) — system context
+%% Why: Visualize high-level components and data flows.
+flowchart LR
+  Investor -->|subscribe| EscrowBank
+  EscrowBank -->|camt.054| ReconAdapter
+  ReconAdapter --> Orchestrator
+  Orchestrator -->|mint/transfer| FixedIncomeNote
+  FixedIncomeNote -->|events| ReconAdapter

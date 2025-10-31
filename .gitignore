@@ -1,0 +1,7 @@
+# Ignore build caches and local artifacts
+out/
+cache/
+lib/
+node_modules/
+.env
+.DS_Store

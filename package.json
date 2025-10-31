@@ -1,0 +1,13 @@
+{
+  "name": "kbb-protocol-mvp",
+  "private": true,
+  "type": "module",
+  "description": "Skeleton only — off-chain DvP/recon placeholders, no logic yet.",
+  "scripts": {
+    "ops:simulate-dvp": "node ops/examples/simulate-dvp.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.7.4"
+  }
+}
