@@ -1,0 +1,14 @@
+%% Mermaid (placeholder) — DvP sequence
+%% Why: Show atomic link of cash receipt to token issuance.
+sequenceDiagram
+  participant I as Investor
+  participant B as Escrow Bank
+  participant R as Recon Adapter
+  participant O as DvP Orchestrator
+  participant N as FixedIncomeNote
+
+  I->>B: Wire funds (subscription)
+  B-->>R: camt.054 (MsgId/UETR)
+  R-->>O: Attestation (amount, currency, valueDate, MsgId)
+  O->>N: mint/transfer if fully funded
+  N-->>R: SubscriptionSettled (eventId, MsgId)
