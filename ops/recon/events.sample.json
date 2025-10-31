@@ -2,7 +2,7 @@
   {
     "event": "SubscriptionSettled",
     "orderId": "0xORDER1",
-    "investor": "0x...BEEF",
+    "investor": "0x000000000000000000000000000000000000BEEF",
     "amount": 100000,
     "currency": "USD",
     "settlementRef": "2025-10-15/MsgId:ABC123",

@@ -27,3 +27,19 @@ jobs:
           forge --version
           forge build
           forge test -vv
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Run demo
+        run: npm run demo
+
+      - name: Validate events against schema
+        run: npm run validate:events
+
+      - name: Upload validation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: events-validation
+          path: out/events.validation.json
+          if-no-files-found: error
+
