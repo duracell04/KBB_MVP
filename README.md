@@ -1,6 +1,6 @@
 # KBB Protocol — Tokenized Fixed-Income Note (MVP)
 
-The KBB MVP delivers a **bank-settled, token-registered private debt instrument**.  Cash moves through an escrow bank account; the blockchain acts as the canonical register and audit trail for subscriptions, coupons, and redemptions.  This README is written for auditors, legal & ops teams, and technical stakeholders so everyone shares a single specification for the initial release.
+**Cash-settled via regulated rails; permissioned token as register & distribution layer.**
 
 ---
 
