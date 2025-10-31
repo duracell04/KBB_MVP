@@ -20,7 +20,7 @@ jobs:
         run: |
           git config --global url.https://github.com/.insteadof ssh://git@github.com/
           git config --global url.https://github.com/.insteadof git@github.com:
-          forge install --no-commit foundry-rs/forge-std
+          forge install foundry-rs/forge-std
 
       - name: Build & Test
         run: |
