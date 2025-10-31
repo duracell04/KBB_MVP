@@ -18,7 +18,6 @@ contract UUPSUpgradeableNote is FixedIncomeNote, UUPSUpgradeable {
         DayCount.Convention _convention
     ) public override initializer {
         FixedIncomeNote.initialize(_admin, _cashToken, _transferAgent, _registry, _couponRateBps, _convention);
-        __UUPSUpgradeable_init();
     }
 
     function _authorizeUpgrade(address newImplementation) internal override onlyRole(UPGRADER_ROLE) {}
