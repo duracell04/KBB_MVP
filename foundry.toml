@@ -1,6 +1,6 @@
-# Foundry config (safe defaults). No remappings yet to keep init minimal.
 [profile.default]
 src = 'contracts'
 out = 'out'
 libs = ['lib']
 solc_version = '0.8.26'
+remappings = ['forge-std/=lib/forge-std/src/']
