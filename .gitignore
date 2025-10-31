@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+lib/
+out/
+
+# Environment
+.env
+.env.*
+
+# IDEs
+.idea/
+.vscode/
+.DS_Store
+
+# Artifacts
+coverage/
+cache/
+fuzz/
+
+# Logs
+*.log

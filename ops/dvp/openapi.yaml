@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: KBB DvP Orchestrator
+  version: 0.1.0
+paths:
+  /subscribe:
+    post:
+      summary: Subscribe to a new note issuance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                investor:
+                  type: string
+                amount:
+                  type: string
+      responses:
+        '202':
+          description: Subscription accepted
+  /fund:
+    post:
+      summary: Mark a subscription as funded
+      responses:
+        '200':
+          description: Funding acknowledged
+  /settle:
+    post:
+      summary: Settle the on-chain transfer
+      responses:
+        '200':
+          description: Settlement recorded
+  /refund:
+    post:
+      summary: Refund a failed subscription
+      responses:
+        '200':
+          description: Refund executed

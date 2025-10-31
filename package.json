@@ -1,0 +1,13 @@
+{
+  "name": "kbb-protocol",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lint:solidity": "forge fmt",
+    "test": "forge test",
+    "ops:simulate-dvp": "tsx examples/simulate-dvp.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0"
+  }
+}
