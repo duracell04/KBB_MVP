@@ -8,11 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Install Foundry
+      - name: Install Foundry (stable)
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: latest
+          version: stable
 
       - name: Build & Test
         run: |
