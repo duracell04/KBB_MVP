@@ -41,6 +41,7 @@ jobs:
         uses: crytic/slither-action@v0.3.0
         with:
           fail-on: high
+          slither-config: slither.config.json
           slither-args: >-
             --solc-remaps
             @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
