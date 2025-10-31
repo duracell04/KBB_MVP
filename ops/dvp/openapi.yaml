@@ -1,0 +1,7 @@
+openapi: 3.0.3
+info: { title: KBB DvP Orchestrator, version: 0.1.0 }
+paths:
+  /subscribe: { post: { summary: Subscribe, responses: { '202': { description: Accepted } } } }
+  /fund:      { post: { summary: Mark funded, responses: { '200': { description: OK } } } }
+  /settle:    { post: { summary: Settle transfer, responses: { '200': { description: OK } } } }
+  /refund:    { post: { summary: Refund, responses: { '200': { description: OK } } } }

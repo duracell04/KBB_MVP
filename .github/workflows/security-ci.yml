@@ -1,0 +1,72 @@
+name: Security CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Foundry (tests)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+          cache: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install npm deps
+        run: npm install
+
+      - name: Install Solidity deps (forge)
+        run: |
+          forge install \
+            OpenZeppelin/openzeppelin-contracts \
+            OpenZeppelin/openzeppelin-contracts-upgradeable \
+            foundry-rs/forge-std
+
+      - name: Foundry tests
+        run: forge test --ffi
+
+      # Build artifacts for Slither
+      - name: Forge build (for Slither)
+        run: |
+          forge build --build-info \
+            --skip '*/test/**' \
+            --skip '*/script/**' \
+            --force
+
+      # Use stable Foundry compiler for Slither’s crytic-compile (more deterministic)
+      - name: Set up Foundry (stable for Slither)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+          cache: true
+
+      - name: Slither
+        uses: crytic/slither-action@v0.3.0
+        with:
+          target: .
+          slither-args: >-
+            --solc-remaps
+            "@openzeppelin/contracts=lib/openzeppelin-contracts/contracts/ @openzeppelin/contracts-upgradeable=lib/openzeppelin-contracts-upgradeable/contracts/ forge-std=lib/forge-std/src/"
+
+      - name: Echidna
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/TestNoteProperties.sol
+          config: contracts/echidna/config.yaml
+
+      - name: Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/solidity
