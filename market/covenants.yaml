@@ -1,0 +1,7 @@
+covenants:
+  - id: DSCR
+    rule: ">= 1.25"
+    breach_if_below: true
+  - id: LEVERAGE
+    rule: "<= 4.0"
+    breach_if_below: false

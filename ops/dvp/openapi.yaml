@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: KBB DvP Orchestrator (MVP)
+  version: 0.1.0
+paths:
+  /subscriptions:
+    post:
+      summary: Create subscription after eligibility/KYC
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [investor, amount, currency]
+              properties:
+                investor: { type: string }
+                amount: { type: integer }
+                currency: { type: string }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId: { type: string }
+  /subscriptions/{orderId}/fund:
+    post:
+      summary: Attach settlement evidence (ISO20022/SWIFT/SEPA/… or on-chain tx)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [settlementRef, settlementNetwork, amount, currency]
+              properties:
+                settlementRef: { type: string }
+                settlementNetwork:
+                  type: string
+                  enum: [ISO20022, SWIFT, SEPA, ACH, FPS, ONCHAIN_STABLECOIN]
+                amount: { type: integer }
+                currency: { type: string }
+      responses:
+        "202":
+          description: Accepted
+  /settle/{orderId}:
+    post:
+      summary: Mint/transfer if fully funded and within window (idempotent)
+      responses:
+        "200":
+          description: Settled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  txHash: { type: string }
+                  event:
+                    type: string
+                    enum: [SubscriptionSettled]
+                  settlementRef: { type: string }

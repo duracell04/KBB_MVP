@@ -1,7 +1,7 @@
-#!/usr/bin/env -S node --loader ts-node/esm
+#!/usr/bin/env ts-node
 import fs from "fs";
 import path from "path";
-import Ajv from "ajv/dist/2020.js";
+import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
 const eventsPath = process.argv[2] ?? "out/events.sample.json";
@@ -28,4 +28,5 @@ if (!ok) {
   console.error("❌ events invalid. See out/events.validation.json");
   process.exit(1);
 }
+
 console.log("✅ events valid. Report → out/events.validation.json");

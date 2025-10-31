@@ -1,0 +1,6 @@
+{
+  "settlementRef": "UETR-1234567890",
+  "settlementNetwork": "SWIFT",
+  "amount": 500000,
+  "currency": "USD"
+}

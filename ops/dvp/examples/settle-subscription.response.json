@@ -1,0 +1,5 @@
+{
+  "txHash": "0x5f9c...deadbeef",
+  "event": "SubscriptionSettled",
+  "settlementRef": "UETR-1234567890"
+}

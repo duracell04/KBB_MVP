@@ -1,0 +1,5 @@
+{
+  "investor": "did:kbb:0xabc123",
+  "amount": 500000,
+  "currency": "USD"
+}

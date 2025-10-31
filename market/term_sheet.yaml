@@ -1,0 +1,16 @@
+instrument: FixedIncomeNote
+issuer: Example Manufacturing LLC
+currency: USD
+notional_max: 5000000
+coupon_rate_bps: 650
+day_count: "ACT/360 | 30/360(US)"
+schedule:
+  frequency: quarterly
+  first_coupon: 2026-03-31
+  maturity: 2028-12-31
+eligibility:
+  investor_types: [PROFESSIONAL, QUALIFIED]
+  jurisdictions_blocked: [US_NY_RETAIL, GB_RETAIL]
+settlement:
+  rails: [ISO20022, SWIFT, SEPA, ACH, FPS, ONCHAIN_STABLECOIN]
+  dvp_required: true
