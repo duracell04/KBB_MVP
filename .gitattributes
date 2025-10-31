@@ -1,0 +1,4 @@
+* text=auto
+
+*.sol linguist-language=Solidity
+*.mmd linguist-language=Mermaid
