@@ -2,12 +2,20 @@
   "name": "kbb-protocol-mvp",
   "private": true,
   "type": "module",
-  "description": "Skeleton only — off-chain DvP/recon placeholders, no logic yet.",
+  "description": "Skeleton only \u2014 off-chain DvP/recon placeholders, no logic yet.",
   "scripts": {
-    "ops:simulate-dvp": "node ops/examples/simulate-dvp.ts"
+    "ops:simulate-dvp": "node ops/examples/simulate-dvp.ts",
+    "demo:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
+    "demo:recon": "python3 ops/recon/recon.py ops/recon/rails.sample.csv out/events.sample.json",
+    "demo": "npm run demo:simulate-dvp && npm run demo:recon",
+    "validate:events": "node --loader ts-node/esm ops/validate-events.ts"
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^22.7.4"
+    "@types/node": "^22.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
   }
 }

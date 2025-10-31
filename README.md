@@ -98,6 +98,12 @@ npm install
 npm run ops:simulate-dvp
 ```
 
+### Validate event structure
+```bash
+npm run validate:events
+# → writes out/events.validation.json
+```
+
 ### 5-minute demo
 
 ```bash

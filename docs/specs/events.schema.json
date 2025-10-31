@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kbb.example/specs/events.schema.json",
+  "title": "KBB Lifecycle Events",
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "title": "SubscriptionSettled",
+        "type": "object",
+        "required": ["event","orderId","investor","amount","currency","settlementRef","settlementNetwork"],
+        "properties": {
+          "event": { "const": "SubscriptionSettled" },
+          "orderId": { "type": "string", "minLength": 1 },
+          "investor": { "type": "string", "pattern": "^0x[0-9a-fA-F]{40}$" },
+          "amount": { "type": "integer", "minimum": 0 },
+          "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "settlementRef": { "type": "string", "minLength": 1 },
+          "settlementNetwork": {
+            "type": "string",
+            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "CouponPaid",
+        "type": "object",
+        "required": ["event","periodId","grossAmount","withholding","netAmount","settlementRef","settlementNetwork"],
+        "properties": {
+          "event": { "const": "CouponPaid" },
+          "periodId": { "type": "integer", "minimum": 0 },
+          "grossAmount": { "type": "integer", "minimum": 0 },
+          "withholding": { "type": "integer", "minimum": 0 },
+          "netAmount": { "type": "integer", "minimum": 0 },
+          "settlementRef": { "type": "string", "minLength": 1 },
+          "settlementNetwork": {
+            "type": "string",
+            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "RedemptionPaid",
+        "type": "object",
+        "required": ["event","amount","settlementRef","settlementNetwork"],
+        "properties": {
+          "event": { "const": "RedemptionPaid" },
+          "amount": { "type": "integer", "minimum": 0 },
+          "settlementRef": { "type": "string", "minLength": 1 },
+          "settlementNetwork": {
+            "type": "string",
+            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  }
+}
