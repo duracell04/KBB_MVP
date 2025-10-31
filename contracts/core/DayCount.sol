@@ -1,10 +1,9 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-/// @title DayCount (placeholder)
-/// @notice Intention: house day-count conventions (ACT/360, 30/360, etc.) used in coupon accrual.
-/// @dev Why: Isolate financial math for unit/invariant tests; plug-in alternative conventions later.
 library DayCount {
-    enum Convention { ACT_360, THIRTY_360 }
-    // Placeholder only; add functions in implementation phase.
+    function daysACT360(uint256 fromTs, uint256 toTs) internal pure returns (uint256) {
+        require(toTs >= fromTs, "range");
+        return (toTs - fromTs) / 1 days;
+    }
 }

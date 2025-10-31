@@ -1,13 +1,22 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-/// @title FixedIncomeNote (placeholder)
-/// @notice Intention: ERC-20-like, permissioned note with coupon schedule and DvP-only issuance.
-/// @dev Why: Represents the "token-registered" instrument; transfer hooks will enforce compliance.
+import "./DayCount.sol";
+
 contract FixedIncomeNote {
-    // Placeholder storage, events, and functions go here.
-    // In implementation:
-    // - Track couponRateBps, dayCountConvention, schedule
-    // - Enforce whitelist/lockups on transfer
-    // - Emit events for SubscriptionSettled, CouponPaid, RedemptionPaid
+    using DayCount for uint256;
+
+    uint256 public couponRateBps; // e.g., 500 = 5.00% p.a.
+    event CouponAccrued(uint256 notional, uint256 daysCount, uint256 amount, uint256 asOf);
+
+    function initialize(uint256 rateBps) external {
+        require(couponRateBps == 0, "init-once");
+        couponRateBps = rateBps;
+    }
+
+    function accrueACT360(uint256 notional, uint256 fromTs, uint256 toTs) external {
+        uint256 d = DayCount.daysACT360(fromTs, toTs);
+        uint256 amt = (notional * couponRateBps * d) / 36_000_000; // bps * days / 360
+        emit CouponAccrued(notional, d, amt, toTs);
+    }
 }
