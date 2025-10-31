@@ -1,4 +1,5 @@
 # KBB_MVP — Token-registered private debt, cash-settled on regulated rails (MVP)
+[![Build](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml/badge.svg)](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml)
 
 **Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, permissioned transfers, reconciliation, settlement evidence, stablecoin (whitelisted), escrow, audit-ready.
 
@@ -82,6 +83,10 @@ assets/     -> diagrams (Mermaid)
 > Prereq: Foundry — [https://book.getfoundry.sh/](https://book.getfoundry.sh/)
 
 ```bash
+./scripts/demo.sh
+```
+
+```bash
 forge build
 forge test -vv
 ```
@@ -91,6 +96,12 @@ forge test -vv
 ```bash
 npm install
 npm run ops:simulate-dvp
+```
+
+### 5-minute demo
+
+```bash
+./scripts/demo.sh   # builds & tests contracts, runs rail-agnostic reconciliation
 ```
 
 ---

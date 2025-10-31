@@ -1,0 +1,29 @@
+name: ci
+on:
+  push: { branches: [ main ] }
+  pull_request: { branches: [ main ] }
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry (stable)
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Install dependencies (forge-std)
+        run: |
+          git config --global url.https://github.com/.insteadof ssh://git@github.com/
+          git config --global url.https://github.com/.insteadof git@github.com:
+          forge install foundry-rs/forge-std
+
+      - name: Build & Test
+        run: |
+          forge --version
+          forge build
+          forge test -vv
