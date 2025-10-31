@@ -1,0 +1,4 @@
+*       @kbb-protocol/core-team
+/contracts/   @kbb-protocol/solidity
+/ops/         @kbb-protocol/ops
+/docs/        @kbb-protocol/docs
