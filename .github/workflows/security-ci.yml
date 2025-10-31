@@ -57,8 +57,8 @@ jobs:
         with:
           target: .
           fail-on: none
+          solc-version: 0.8.30
           slither-args: >-
-            --solc-version 0.8.30
             --solc-remaps
             "@openzeppelin/contracts=lib/openzeppelin-contracts/contracts/ @openzeppelin/contracts-upgradeable=lib/openzeppelin-contracts-upgradeable/contracts/ forge-std=lib/forge-std/src/"
           sarif: results.sarif
