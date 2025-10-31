@@ -1,144 +1,112 @@
-# KBB_MVP — Cash-settled via Regulated Rails, Token-registered Private Debt (MVP)
+# KBB_MVP — Token-registered private debt, cash-settled on regulated rails (MVP)
 
-**What:** A fixed-income note where cash settles on **regulated rails** (escrow at a licensed institution or—where permitted—whitelisted stablecoins) and the **permissioned token** is the **register & distribution** layer.
-**Why:** Make private debt programmable and auditable without pretending payments are on-chain.
+**Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, permissioned transfers, reconciliation, settlement evidence, stablecoin (whitelisted), escrow, audit-ready.
 
----
-
-## TL;DR (for builders & allocators)
-
-* **Instrument:** `FixedIncomeNote` (ERC-20-like supply = face value units; **permissioned transfers**).
-* **Issuance:** **DvP** only — mint/transfer happens **after verified settlement evidence**.
-* **Servicing:** Coupons/redemptions wired off-chain; **on-chain events** reference the same settlement identifiers for deterministic reconciliation.
-* **Audience:** Tech-savvy partners, contributors, allocators, transfer agents.
+**What:** A fixed-income note where cash settles on **regulated rails** (escrow at a licensed institution or—where permitted—whitelisted stablecoins). A **permissioned token** is the **register & distribution** layer.  
+**Why:** Make private debt programmable & auditable without pretending payments are on-chain.
 
 ---
 
-## Problem → Solution
+## TL;DR
 
-**Problem.** Private debt is slow and opaque: off-chain cash vs. cap-table drift; poor audit trails; messy eligibility/lockups.
-**Solution.** Keep cash on **regulated rails**; use a **permissioned, upgradeable token** as the canonical **register**, and encode lifecycle events with settlement references for one-click reconciliation.
-
----
-
-## Instrument & Tokenomics (MVP)
-
-**Type:** Senior private debt (configurable).
-**Coupon:** Nominal annual rate in **bps** (e.g., 650 = 6.50% p.a.).
-**Day-count:** `ACT/360` (MVP), `30/360` optional.
-**Schedule:** Periodic coupons (e.g., quarterly), bullet principal redemption.
-**Holders:** Whitelisted professional/qualified investors; **OTC-style** permissioned transfers.
-
-**Accrual (ACT/360)**
-
-```
-accrual = notional × (couponRateBps / 10_000) × (days / 360)
-```
-
-*(Round to currency minor units; disclose policy off-chain.)*
-
-**Core invariants**
-
-* Σ(couponsPaid) ≤ Σ(theoreticalAccrual)
-* Accrual monotone in time
-* No transfer if eligibility/lockup fails
-* Issuance is DvP-gated
+- **Instrument:** `FixedIncomeNote` (ERC-20-like supply = face value units; **ERC-3643-compatible**, permissioned transfers).  
+- **Issuance:** **Delivery-versus-Payment (DvP)** only — mint/transfer **after** verified settlement evidence.  
+- **Servicing:** Coupons/redemptions wired off-chain; **on-chain events** carry `settlementRef` / `settlementNetwork` for deterministic reconciliation to statements or tx hashes.
 
 ---
 
-## How Settlement & Reconciliation Work
+## The KBB story (2-minute read)
 
-* **Rails:** ISO 20022 / SWIFT / SEPA / ACH / FPS, or **whitelisted stablecoins** with on-chain proof.
-* **Adapter attests:** `(amount, currency, valueDate, settlementRef, settlementNetwork)`
-* **Token writes events:** `SubscriptionSettled`, `CouponPaid`, `RedemptionPaid` containing the same reference → **deterministic join** to statements or tx hashes.
+**KBB = Kartvelian Business Bonds.** A path for Georgian SMEs to access "**Eurobond-like**" financing sized for small/mid tickets: standardized terms, predictable servicing, and professional investors — with operational truth on **regulated cash rails** and a tokenized **register & distribution** layer for transparency and control.
 
-**Event fields (rail-agnostic)**
+- **Who benefits:**  
+  • SMEs with real revenue that lack efficient cross-border credit routes.  
+  • Professional allocators who want predictable coupons and audit-ready trails.  
+  • Operators (issuer/transfer agent) who need DvP discipline and clean reconciliations.
 
-```solidity
-// e.g., "ISO20022" | "SWIFT" | "SEPA" | "ACH" | "FPS" | "ONCHAIN_STABLECOIN"
-string settlementNetwork;
-string settlementRef; // MsgId/UETR/SWIFT ref/SEPA ref/on-chain tx hash
-```
+> **Design principle:** **Cash settles on regulated rails.** Tokens exist to **register ownership, gate eligibility/lockups, and emit machine-readable lifecycle events** keyed to the same references used by banking or (where permitted) stablecoin rails.
 
 ---
 
-## High-level Architecture
+## Architecture at a glance
 
 ```mermaid
 flowchart LR
-
-  A[Investor (eligible)] -->|Subscribe| B(Escrow at Regulated Institution)
-  B -->|Settlement advice / proof| C[Settlement Adapter]
-  C -->|attest (amount,currency,valueDate,settlementRef,network)| D[DvP Orchestrator]
-  D -->|mint/transfer if funded| E((FixedIncomeNote))
-  E -->|lifecycle events| F[On-chain Event Log]
-  F -->|refs| C
+  I[Investor (eligible)] -->|Subscribe| E(Escrow at regulated institution)
+  E -->|Settlement advice / proof| A[Settlement Adapter]
+  A -->|attest (amount,currency,valueDate,settlementRef,network)| O[DvP Orchestrator]
+  O -->|mint/transfer if funded| N((FixedIncomeNote))
+  N -->|events incl. settlementRef| L[On-chain Event Log]
+  L -->|refs| A
 ```
 
-**Principles**
+**Core flows**
 
-1. **Legal primacy off-chain**; chain = **register/distribution**.
-2. **DvP only** for issuance.
-3. **Permissioned transfers** (whitelist, lockups, geo-rules).
-4. **Full observability** via event references.
+* **Primary (DvP):** Investor funds on a supported rail → adapter attests → orchestrator settles → `SubscriptionSettled(...)` with the same reference identifiers.
+* **Servicing:** Escrow wires coupons/redemptions → token emits `CouponPaid(...)` / `RedemptionPaid(...)` including identical references → deterministic recon.
 
 ---
 
-## What’s in This Repo (MVP scope)
+## Event schema (rail-agnostic)
 
+```text
+SubscriptionSettled(orderId, investor, amount, currency, settlementRef, settlementNetwork)
+CouponPaid(periodId, grossAmount, withholding, netAmount, settlementRef, settlementNetwork)
+RedemptionPaid(amount, settlementRef, settlementNetwork)
+
+settlementNetwork: e.g., "ISO20022" | "SWIFT" | "SEPA" | "ACH" | "FPS" | "ONCHAIN_STABLECOIN"
 ```
-contracts/       # Solidity (upgradeable note, day-count, interfaces) — start small, grow safely
-  core/          # FixedIncomeNote, DayCount, AdminRoles (stubs today)
-  interfaces/    # ITransferAgent (DvP), IRegistry (eligibility/lockups)
-  upgrades/      # UUPS surface (phase-in)
-  test/          # unit / invariants / fuzz (placeholders)
 
-ops/             # Off-chain orchestration & reconciliation (stubs)
-  dvp/           # subscribe → fund → settle (idempotent flow)
-  recon/         # ISO 20022 adapter + matcher; fixtures for demos
+**Accrual (ACT/360, example)**
 
-docs/            # brief architecture notes & runbooks (short, pragmatic)
-assets/diagrams/ # Mermaid diagrams for quick comprehension
+```text
+accrual = notional × (couponRateBps / 10_000) × (days / 360)
 ```
 
 ---
 
-## Minimal Getting Started (dev focus)
+## Repo map
+
+```text
+contracts/  -> Solidity stubs (compiles): FixedIncomeNote, DayCount, interfaces
+test/       -> one passing Foundry test (keeps CI green early)
+ops/        -> DvP & reconciliation stubs (no heavy deps; TS/Py-ready)
+docs/       -> 1-page architecture overview (rail-agnostic)
+assets/     -> diagrams (Mermaid)
+```
+
+---
+
+## Try it locally (5 min)
+
+> Prereq: Foundry — [https://book.getfoundry.sh/](https://book.getfoundry.sh/)
 
 ```bash
-# clone
-git clone https://github.com/duracell04/KBB_MVP.git && cd KBB_MVP
-
-# contracts (placeholders compile)
 forge build
-forge test
+forge test -vv
+```
 
-# ops stubs (optional)
+*(Optional ops stubs)*
+
+```bash
 npm install
 npm run ops:simulate-dvp
 ```
 
 ---
 
-## How to Collaborate
+## Why this MVP matters
 
-* **Contribute code:** Keep PRs small and test the financial math.
-* **Integrate rails:** Add a settlement adapter (ISO/SWIFT/SEPA/ACH/FPS or on-chain stablecoin proofs).
-* **Audit/Review:** Challenge invariants, rounding, and state transitions.
-* **Co-design:** Bring issuer/TA requirements; we’ll adapt the seams (Registry/TransferAgent).
-
-> If you want a deeper spec (coupon edges, record-date snapshots, blocked balances, UUPS/timelock), open an Issue or Discussion and we’ll expand the slices in this repo.
+* **Operational truth:** DvP & reconciliation are core, not bolted on.
+* **Eligibility by default:** Permissioned transfers; lockups/jurisdictions enforceable at the token seam.
+* **Audit-ready:** Event fields mirror the same identifiers rails use (e.g., ISO 20022 `MsgId/UETR`) for deterministic joins.
 
 ---
 
-## Roadmap (compact)
+## How to collaborate
 
-* ✅ MVP skeleton (contracts + ops stubs + fixtures)
-* ▶ DayCount + accrual tests (edge cases, rounding, leap days)
-* ▶ DvP “happy path” demo (idempotent, deterministic refs)
-* ▶ Event-driven recon report (matched/breaks CSV/JSON)
-* ⏭ Revenue-share SKU (cash sweep + DSRA), withholding exports, failure drills
+* **Contribute a slice:** small PR + one test.
+* **Add a rail adapter:** parse evidence → produce `(amount, currency, valueDate, settlementRef, settlementNetwork)`.
+* **Challenge mechanics:** invariants, rounding, record dates, failure paths.
 
----
-
-*On-chain is the register & distribution rail. Settlement runs on regulated rails or approved stablecoins. This is built for professional/qualified investors and collaborators who care about **clean mechanics** and **audit-ready data**.*
+See `VISION.md` for intent and `ROADMAP.md` for next checkpoints.
