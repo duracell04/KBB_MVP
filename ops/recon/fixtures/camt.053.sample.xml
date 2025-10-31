@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+  <BkToCstmrStmt>
+    <Stmt>
+      <Ntry>
+        <NtryRef>SUB-001</NtryRef>
+        <Amt Ccy="USD">1000.00</Amt>
+      </Ntry>
+      <Ntry>
+        <NtryRef>SUB-002</NtryRef>
+        <Amt Ccy="USD">2000.00</Amt>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>
