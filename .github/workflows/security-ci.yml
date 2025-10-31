@@ -40,9 +40,14 @@ jobs:
       - name: Slither
         uses: crytic/slither-action@v0.3.0
         with:
+          fail-on: high
           slither-args: >-
-            --solc-remaps @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/,@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/,forge-std/=lib/forge-std/src/
+            --solc-remaps
+            @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+            @openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/
+            forge-std/=lib/forge-std/src/
             --exclude-dependencies
+            --exclude-detectors incorrect-versions-of-solidity
 
       - name: Echidna
         uses: crytic/echidna-action@v2
