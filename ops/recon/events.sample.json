@@ -1,0 +1,11 @@
+[
+  {
+    "event": "SubscriptionSettled",
+    "orderId": "0xORDER1",
+    "investor": "0x...BEEF",
+    "amount": 100000,
+    "currency": "USD",
+    "settlementRef": "2025-10-15/MsgId:ABC123",
+    "settlementNetwork": "ISO20022"
+  }
+]
