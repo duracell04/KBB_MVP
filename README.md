@@ -66,6 +66,7 @@ string settlementRef; // MsgId/UETR/SWIFT ref/SEPA ref/on-chain tx hash
 
 ```mermaid
 flowchart LR
+
   A[Investor (eligible)] -->|Subscribe| B(Escrow at Regulated Institution)
   B -->|Settlement advice / proof| C[Settlement Adapter]
   C -->|attest (amount,currency,valueDate,settlementRef,network)| D[DvP Orchestrator]
