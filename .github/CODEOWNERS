@@ -1,0 +1,11 @@
+# Default owners
+*       @kbb-protocol/core-team
+
+# Smart contracts
+/contracts/   @kbb-protocol/solidity
+
+# Ops services
+/ops/         @kbb-protocol/ops
+
+# Documentation
+/docs/        @kbb-protocol/docs

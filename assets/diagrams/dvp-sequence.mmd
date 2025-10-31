@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant Investor
+    participant Bank
+    participant Orchestrator
+    participant Note
+
+    Investor->>Bank: Send funds
+    Bank-->>Orchestrator: Send camt.054 notification
+    Orchestrator->>Note: Mint tokens
+    Note-->>Investor: Deliver fixed income note
