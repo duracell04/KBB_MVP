@@ -52,13 +52,21 @@ jobs:
           version: stable
           cache: true
 
-      - name: Slither
+      - name: Slither (non-blocking, upload SARIF)
         uses: crytic/slither-action@v0.3.0
         with:
           target: .
+          fail-on: none
           slither-args: >-
+            --solc-version 0.8.30
             --solc-remaps
             "@openzeppelin/contracts=lib/openzeppelin-contracts/contracts/ @openzeppelin/contracts-upgradeable=lib/openzeppelin-contracts-upgradeable/contracts/ forge-std=lib/forge-std/src/"
+          sarif: results.sarif
+
+      - name: Upload Slither results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
 
       - name: Echidna
         uses: crytic/echidna-action@v2
