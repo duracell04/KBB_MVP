@@ -1,0 +1,6 @@
+graph LR
+  Bank((Bank)) -->|Statements| Recon
+  Recon -->|Matches| Ops
+  Ops --> FixedIncomeNote
+  Investor --> DvP
+  DvP --> Ops

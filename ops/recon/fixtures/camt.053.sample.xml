@@ -1,0 +1,7 @@
+<Document>
+  <BkToCstmrStmt>
+    <Stmt>
+      <Ntry><NtryRef>SUB123</NtryRef><Amt Ccy="USD">1000.00</Amt></Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>

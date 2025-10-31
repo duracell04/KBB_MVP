@@ -1,0 +1,53 @@
+name: Security CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+          cache: true
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install npm deps
+        run: npm install
+
+      - name: Foundry tests
+        run: forge test --ffi
+
+      - name: Slither
+        uses: crytic/slither-action@v0.3.0
+        with:
+          slither-args: >-
+            --solc-remaps
+            @openzeppelin/=lib/openzeppelin-contracts/
+            @openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/
+            forge-std/=lib/forge-std/src/
+
+      - name: Echidna
+        uses: crytic/echidna-action@v2
+        with:
+          files: contracts/echidna/TestNoteProperties.sol
+          config: contracts/echidna/config.yaml
+
+      - name: Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/solidity
