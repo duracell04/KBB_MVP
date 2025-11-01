@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KBB Recon Report",
+  "type": "object",
+  "required": ["matched", "breaks"],
+  "properties": {
+    "matched": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/link" }
+    },
+    "breaks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/link" }
+    }
+  },
+  "definitions": {
+    "link": {
+      "type": "object",
+      "required": ["event"],
+      "properties": {
+        "event": { "type": "object" },
+        "rail": { "type": ["object", "null"] }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
