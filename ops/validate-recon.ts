@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
-import fs from "fs";
-import Ajv from "ajv";
+import fs from "node:fs";
+import Ajv from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const schemaPath = "docs/specs/recon.report.schema.json";
