@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kbb.example/specs/events.schema.json",
   "title": "KBB Lifecycle Events",
   "type": "array",
   "items": {
