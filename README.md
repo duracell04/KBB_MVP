@@ -1,159 +1,66 @@
-# KBB_MVP — Token-registered private debt, cash-settled on regulated rails (MVP)
+# KBB_MVP — Token-registered private debt, cash-settled on regulated rails
 
 [![Build](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml/badge.svg)](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
-[![Docs](https://img.shields.io/badge/docs-architecture-blue.svg)](docs/architecture.md)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://duracell04.github.io/KBB_MVP/)
 
-**Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, permissioned transfers, reconciliation, settlement evidence, stablecoin (whitelisted), escrow, audit-ready.
+**Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, reconciliation, settlement evidence, regulated rails.
 
-**What:** A fixed-income note where cash settles on **regulated rails** (escrow at a licensed institution or—where permitted—whitelisted stablecoins). A **permissioned token** is the **register & distribution** layer.  
-**Why:** Make private debt programmable & auditable without pretending payments are on-chain.
+KBB_MVP demonstrates how to keep a private debt register on-chain while cash settles on regulated rails. Delivery-versus-Payment (DvP) is mandatory; lifecycle events carry deterministic references back to rail evidence.
 
----
+## Quickstart
 
-## Table of Contents
-
-- [TL;DR](#tldr)
-- [Architecture at a Glance](#architecture-at-a-glance)
-- [Run Locally in 60s (Demo)](#run-locally-in-60s-demo)
-- [Event Schema (Rail-agnostic)](#event-schema-rail-agnostic)
-- [Financial Mechanics (ACT/360 & 30/360 US)](#financial-mechanics-act360--30360-us)
-- [Repository Map](#repository-map)
-- [Compliance State (Preview)](#compliance-state-preview)
-- [Contributing](#contributing)
-- [Security & Disclosure](#security--disclosure)
-- [License](#license)
-
----
-
-## TL;DR
-
-- **Instrument:** `FixedIncomeNote` (ERC-20-like supply = face value units; **ERC-3643-compatible**, permissioned transfers).  
-- **Issuance:** **Delivery-versus-Payment (DvP)** only — mint/transfer **after** verified settlement evidence.  
-- **Servicing:** Coupons/redemptions wired off-chain; **on-chain events** carry `settlementRef` / `settlementNetwork` for deterministic reconciliation to statements or tx hashes.
-
----
-
-## Architecture at a Glance
-
-- **Rails:** ISO 20022 / SWIFT / SEPA / ACH / FPS, or (where permitted) whitelisted stablecoins  
-- **Register:** tokenized note (permissioned transfers)  
-- **DvP:** mint/transfer only after **verified** settlement evidence (rail-agnostic)
-
-```text
-Investor → Escrow (regulated rails) → Settlement Adapter → DvP Orchestrator → FixedIncomeNote (events w/ settlementRef)
-```
-
-See: **[docs/architecture.md](docs/architecture.md)**
-
----
-
-## Run Locally in 60s (Demo)
-
-> Requires: Foundry + Node 20 (CI runs the same steps)
+> Requires Foundry & Node 20. CI runs the same steps.
 
 ```bash
 forge build && forge test -vv
 npm ci
 npm run demo
-# → prints: matched=1 breaks=0
-# Recon report: out/recon.report.json
-```
-
-**Validate event structure (JSON Schema):**
-
-```bash
 npm run validate:events
-# → writes out/events.validation.json
-```
-
-*(Optional)* Validate recon report:
-
-```bash
 npm run validate:recon
-# → writes out/recon.validation.json
 ```
 
-CI uploads the validation + recon artifacts on every run.
+See [docs/quickstart.md](docs/quickstart.md) for artifact locations and troubleshooting tips.
 
----
+## Documentation
 
-## Event Schema (Rail-agnostic)
+| Topic | Link |
+| --- | --- |
+| Overview landing page | [docs/index.md](docs/index.md) |
+| System & DvP architecture | [docs/architecture.md](docs/architecture.md) |
+| Lifecycle events & schemas | [docs/events.md](docs/events.md) |
+| Reconciliation | [docs/recon.md](docs/recon.md) |
+| Financial mechanics | [docs/financial-mechanics.md](docs/financial-mechanics.md) |
+| Contracts | [docs/contracts.md](docs/contracts.md) |
+| Compliance preview | [docs/compliance.md](docs/compliance.md) |
+| Settlement adapters | [docs/adapters.md](docs/adapters.md) |
+| Runbooks | [docs/runbooks](docs/runbooks) |
+| ADRs | [docs/adr](docs/adr) |
+
+The full documentation site builds with MkDocs Material and publishes to GitHub Pages on every merge to `main`.
+
+## Repository map
 
 ```text
-SubscriptionSettled(orderId, investor, amount, currency, settlementRef, settlementNetwork)
-CouponPaid(periodId, grossAmount, withholding, netAmount, settlementRef, settlementNetwork)
-RedemptionPaid(amount, settlementRef, settlementNetwork)
-
-settlementNetwork ∈ {"ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"}
-settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
+contracts/         # Solidity contracts (note, math, compliance preview)
+ops/               # Demo, reconciliation, validators
+apps/frontend/     # Placeholder frontend workspace
+assets/            # Diagrams
+docs/              # MkDocs content, specs, runbooks, ADRs
 ```
-
-* Canonical schema: **[docs/specs/events.schema.json](docs/specs/events.schema.json)**
-* Demo events: `out/events.sample.json` (generated by `npm run demo:simulate-dvp`)
-* Recon matcher: `ops/recon/recon.py` joins events ↔ rails CSV on `settlementRef`
-
----
-
-## Financial Mechanics (ACT/360 & 30/360 US)
-
-**ACT/360 example**
-
-```text
-accrual = notional × (couponRateBps / 10_000) × (days / 360)
-```
-
-**30/360 (US) support:** end-of-month & leap-year edge cases covered in tests.
-See: `contracts/lib/DayCount30_360.sol`, tests under `test/DayCount30_360.t.sol`.
-
----
-
-## Repository Map
-
-```text
-contracts/         # Solidity (note, math, compliance preview)
-  core/            # FixedIncomeNote (demo events), day-count libs
-  lib/             # DayCount (ACT/360), DayCount30_360, Accrual
-  compliance/      # CovenantManager (preview)
-  interfaces/      # ITransferAgent, IComplianceReportable, etc.
-
-ops/               # Demo & reconciliation (rail-agnostic)
-  examples/        # simulate-dvp.ts → events.sample.json
-  recon/           # recon.py + rails.sample.csv (deterministic join)
-  validate-*.ts    # AJV validators for events/recon
-
-docs/              # Architecture, specs, runbooks
-  specs/           # JSON Schemas for events & recon report
-
-assets/diagrams/   # Mermaid sources (system / DvP sequence)
-.github/           # CI workflows, security policy
-```
-
----
-
-## Compliance State (Preview)
-
-**`contracts/compliance/CovenantManager.sol`** tracks covenant signals (e.g., DSCR/LTV) and exposes a queryable **compliance status** for custodians. Breach logic is explicit (e.g., DSCR breach if below threshold). This is a small, self-contained preview you can wire under an upgradeable pattern later.
-
----
 
 ## Contributing
 
 Small, focused PRs please ✨
 
-* Include tests for math/permissions where applicable.
-* Keep diffs readable; update fixtures/schemas if event shapes change.
-  See **[CONTRIBUTING.md](CONTRIBUTING.md)** for workflow and **good-first-issue** tags.
+- Include tests for math/permissions where applicable.
+- Update docs & schemas when event shapes change.
+- Follow [CONTRIBUTING.md](CONTRIBUTING.md) for workflow and issue triage.
 
----
+## Security & disclosure
 
-## Security & Disclosure
-
-This repo is **reference code**. If you believe you’ve found a vulnerability, please follow **.github/SECURITY.md** to disclose responsibly. Do not file public issues for security bugs.
-
----
+Reference [.github/SECURITY.md](.github/SECURITY.md) for responsible disclosure instructions.
 
 ## License
 
-**MIT** (or Apache-2.0 if you prefer patent provisions — update `LICENSE` accordingly).
-**Disclaimer:** Informational only; not an offer to sell or solicitation to buy any security. Settlement occurs on regulated rails (or permitted stablecoins). On-chain is a **register & distribution** layer, not a payment system.
+MIT. See [LICENSE](LICENSE). Informational only; not an offer to sell or solicitation to buy any security.
