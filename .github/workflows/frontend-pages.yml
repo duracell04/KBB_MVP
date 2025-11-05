@@ -33,12 +33,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             package-lock.json
-            apps/frontend/package-lock.json
 
-      - name: Install dependencies (workspace)
-        run: |
-          npm ci --ignore-scripts
-          npm --prefix apps/frontend ci --ignore-scripts
+      - name: Install dependencies (workspaces)
+        run: npm ci --ignore-scripts --workspaces --include-workspace-root
         working-directory: .
 
       - name: Build frontend
