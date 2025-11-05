@@ -1,0 +1,33 @@
+site_name: KBB_MVP
+site_description: Token-registered private debt, cash-settled on regulated rails (MVP)
+docs_dir: docs
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.sections
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+nav:
+  - Overview: index.md
+  - Architecture: architecture.md
+  - Quickstart: quickstart.md
+  - Events & Reconciliation:
+      - Events: events.md
+      - Recon: recon.md
+      - Schemas:
+          - Events schema (JSON): specs/events.schema.json
+          - Recon report schema (JSON): specs/recon.report.schema.json
+  - Finance: financial-mechanics.md
+  - Contracts: contracts.md
+  - Compliance: compliance.md
+  - Adapters: adapters.md
+  - Runbooks:
+      - Failure modes: runbooks/failure-modes.md
+      - Key rotation: runbooks/key-rotation.md
+  - ADRs:
+      - DvP-only issuance: adr/0001-dvp-only.md
+      - Rail-agnostic register: adr/0002-rail-agnostic.md
