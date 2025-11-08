@@ -33,7 +33,7 @@
 
 ## Market snapshot
 
-- Economics JSON lives in [`../market/economics.sample.json`](../market/economics.sample.json) and validates via [`../market/economics.schema.json`](../market/economics.schema.json).
+- Economics JSON lives in [`market/economics.sample.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.sample.json) and validates via [`market/economics.schema.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.schema.json).
 - Near-miss taxonomy for reconciliation is defined in [`specs/recon.breaks.schema.json`](specs/recon.breaks.schema.json).
 
 ## Contributing to docs

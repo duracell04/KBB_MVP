@@ -4,8 +4,8 @@ KBB enforces ERC-3643-style checks before minting or transferring notes. The on-
 
 ## Interface
 
-- [`contracts/registry/IRegistry.sol`](../contracts/registry/IRegistry.sol) exposes `isEligible`, `lockupUntil`, and `jurisdiction` lookups.
-- [`contracts/registry/BasicRegistry.sol`](../contracts/registry/BasicRegistry.sol) stores admin-managed eligibility/lockup data.
+- [`contracts/registry/IRegistry.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/registry/IRegistry.sol) exposes `isEligible`, `lockupUntil`, and `jurisdiction` lookups.
+- [`contracts/registry/BasicRegistry.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/registry/BasicRegistry.sol) stores admin-managed eligibility/lockup data.
 
 ## Usage example
 

@@ -20,8 +20,8 @@ npm run validate:recon
 
 - [Event schema](specs/events.schema.json)
 - [Recon schema](specs/recon.report.schema.json)
-- Rails evidence sample: [`ops/recon/rails.sample.csv`](../ops/recon/rails.sample.csv)
-- Demo generator: [`ops/examples/simulate-dvp.ts`](../ops/examples/simulate-dvp.ts)
+- Rails evidence sample: [`ops/recon/rails.sample.csv`](https://github.com/duracell04/KBB_MVP/blob/main/ops/recon/rails.sample.csv)
+- Demo generator: [`ops/examples/simulate-dvp.ts`](https://github.com/duracell04/KBB_MVP/blob/main/ops/examples/simulate-dvp.ts)
 
 ### Troubleshooting
 
