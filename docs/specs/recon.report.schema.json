@@ -6,11 +6,11 @@
   "properties": {
     "matched": {
       "type": "array",
-      "items": { "$ref": "#/definitions/link" }
+      "items": { "$ref": "#/definitions/matched" }
     },
     "breaks": {
       "type": "array",
-      "items": { "$ref": "#/definitions/link" }
+      "items": { "$ref": "#/definitions/break" }
     }
   },
   "definitions": {
@@ -22,6 +22,28 @@
         "rail": { "type": ["object", "null"] }
       },
       "additionalProperties": true
+    },
+    "matched": { "$ref": "#/definitions/link" },
+    "break": {
+      "allOf": [
+        { "$ref": "#/definitions/link" },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "MISSING_RAIL",
+                "AMOUNT_MISMATCH",
+                "CURRENCY_MISMATCH",
+                "DUPLICATE_REF",
+                "STALE_VALUEDATE"
+              ]
+            }
+          }
+        }
+      ]
     }
   },
   "additionalProperties": false

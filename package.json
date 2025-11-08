@@ -10,7 +10,7 @@
     "demo": "npm run demo:simulate-dvp && npm run demo:recon",
     "validate:events": "node --loader ts-node/esm ops/validate-events.ts",
     "validate:recon": "node --loader ts-node/esm ops/validate-recon.ts",
-    "ci:demo": "npm run demo && npm run validate:events && npm run validate:recon",
+    "ci:demo": "npm run demo && npm run validate:events",
     "frontend:dev": "npm --prefix apps/frontend run dev",
     "frontend:build": "npm --prefix apps/frontend run build",
     "frontend:preview": "npm --prefix apps/frontend run preview"

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KBB Project Economics",
+  "type": "object",
+  "required": [
+    "currency",
+    "grossAprBps",
+    "platformFeesBps",
+    "netAprBps",
+    "amortization",
+    "paymentFrequency",
+    "tenorMonths"
+  ],
+  "properties": {
+    "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "grossAprBps": { "type": "integer", "minimum": 0 },
+    "platformFeesBps": { "type": "integer", "minimum": 0 },
+    "netAprBps": { "type": "integer", "minimum": 0 },
+    "amortization": {
+      "type": "string",
+      "enum": ["BULLET", "AMORTIZING"]
+    },
+    "paymentFrequency": {
+      "type": "string",
+      "enum": ["MONTHLY", "QUARTERLY", "SEMIANNUAL", "ANNUAL"]
+    },
+    "tenorMonths": { "type": "integer", "minimum": 1 },
+    "prepayment": { "type": "string" }
+  },
+  "additionalProperties": false
+}

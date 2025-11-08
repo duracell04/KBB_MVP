@@ -4,6 +4,10 @@
 SubscriptionSettled(orderId, investor, amount, currency, settlementRef, settlementNetwork)
 CouponPaid(periodId, grossAmount, withholding, netAmount, settlementRef, settlementNetwork)
 RedemptionPaid(amount, settlementRef, settlementNetwork)
+CollateralLocked(collateralId, type, value, currency, valuationDate, custodian, settlementRef, settlementNetwork)
+CollateralReleased(collateralId, reason)
+ProvisionFunded(amount, currency, settlementRef, settlementNetwork)
+ProvisionPaidOut(claimId, amount, currency, reason)
 
 settlementNetwork ∈ {"ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"}
 settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
@@ -23,6 +27,36 @@ settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
     "currency": "USD",
     "settlementRef": "2025-10-15/MsgId:ABC123",
     "settlementNetwork": "ISO20022"
+  },
+  {
+    "event": "CollateralLocked",
+    "collateralId": "COLL-1",
+    "type": "INVENTORY",
+    "value": 250000,
+    "currency": "USD",
+    "valuationDate": "2026-01-15",
+    "custodian": "EscrowCo",
+    "settlementRef": "2026-01-15/MsgId:ABC123",
+    "settlementNetwork": "ISO20022"
+  },
+  {
+    "event": "ProvisionFunded",
+    "amount": 50000,
+    "currency": "USD",
+    "settlementRef": "2026-01-16/MsgId:DEF456",
+    "settlementNetwork": "ISO20022"
+  },
+  {
+    "event": "CollateralReleased",
+    "collateralId": "COLL-1",
+    "reason": "loan repaid"
+  },
+  {
+    "event": "ProvisionPaidOut",
+    "claimId": "CLAIM-1",
+    "amount": 10000,
+    "currency": "USD",
+    "reason": "Borrower default coverage"
   }
 ]
 ```
@@ -33,6 +67,18 @@ settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
 - `settlementNetwork` identifies the rail; use uppercase constants.
 - Amounts are integers; apply ISO currency minor units.
 - Emitted events must be monotonic per lifecycle stage (e.g., coupon periods cannot regress).
+- Collateral custody is surfaced through `CollateralLocked` / `CollateralReleased`.
+- Provision reserves are transparent via `ProvisionFunded` / `ProvisionPaidOut`.
+
+## Collateral lifecycle
+
+- Locking emits custody metadata (`custodian`, `valuationDate`, `settlementRef`, rail) for audit trails.
+- Release reasons document why collateral is freed (e.g., repayment, substitution, waiver).
+
+## Provision reserves
+
+- `ProvisionFunded` ties reserve top-ups to the funding rail evidence.
+- `ProvisionPaidOut` details drawdowns with a claim identifier and free-form reason.
 
 ## Consuming events
 

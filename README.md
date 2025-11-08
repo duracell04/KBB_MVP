@@ -6,7 +6,7 @@
 
 **Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, reconciliation, settlement evidence, regulated rails.
 
-KBB_MVP demonstrates how to keep a private debt register on-chain while cash settles on regulated rails. Delivery-versus-Payment (DvP) is mandatory; lifecycle events carry deterministic references back to rail evidence.
+KBB_MVP demonstrates how to keep a private debt register on-chain while cash settles on regulated rails. Delivery-versus-Payment (DvP) is mandatory; lifecycle events carry deterministic references back to rail evidence. Collateral lifecycle events are emitted for custody transparency.
 
 ## Quickstart
 
@@ -22,6 +22,10 @@ npm run validate:recon
 
 See [docs/quickstart.md](docs/quickstart.md) for artifact locations and troubleshooting tips.
 
+## Economics snapshot
+
+The economics TL;DR lives in [`market/economics.sample.json`](market/economics.sample.json) and validates against [`market/economics.schema.json`](market/economics.schema.json). Feed the JSON to your frontend for a card/table or render directly in docs.
+
 ## Documentation
 
 | Topic | Link |
@@ -34,10 +38,15 @@ See [docs/quickstart.md](docs/quickstart.md) for artifact locations and troubles
 | Contracts | [docs/contracts.md](docs/contracts.md) |
 | Compliance preview | [docs/compliance.md](docs/compliance.md) |
 | Settlement adapters | [docs/adapters.md](docs/adapters.md) |
+| Eligibility registry | [docs/eligibility.md](docs/eligibility.md) |
 | Runbooks | [docs/runbooks](docs/runbooks) |
 | ADRs | [docs/adr](docs/adr) |
 
 The full documentation site builds with MkDocs Material and publishes to GitHub Pages on every merge to `main`.
+
+## Architecture guardrails
+
+- Registry gate checks eligibility/lockup before settle/transfer.
 
 ## Repository map
 

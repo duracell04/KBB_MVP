@@ -1,0 +1,10 @@
+{
+  "currency": "USD",
+  "grossAprBps": 650,
+  "platformFeesBps": 50,
+  "netAprBps": 600,
+  "amortization": "BULLET",
+  "paymentFrequency": "QUARTERLY",
+  "tenorMonths": 36,
+  "prepayment": "Permitted with 30d notice; no penalty"
+}

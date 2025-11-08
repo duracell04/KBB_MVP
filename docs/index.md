@@ -7,6 +7,8 @@
 - **DvP-only issuance**: Mint/transfer after verified settlement evidence.
 - **Permissioned transfers**: ERC-3643-compatible eligibility & lockups.
 - **Deterministic reconciliation**: Events emit `settlementRef` / `settlementNetwork` that match rail statements.
+- **Collateral transparency**: Custody events document who holds what and when.
+- **Provision reserves**: Funding & payouts are evented for auditability.
 
 ➡️ Start with the [Quickstart](quickstart.md) for the 60-second runnable demo.
 
@@ -19,6 +21,7 @@
 | Reconciliation | [Recon runbook](recon.md) |
 | Finance math | [Financial mechanics](financial-mechanics.md) |
 | Contracts | [Contracts](contracts.md) (NatSpec-facing) |
+| Eligibility seam | [Eligibility](eligibility.md) |
 | Compliance preview | [Compliance](compliance.md) |
 | Integrations | [Adapters](adapters.md) |
 
@@ -27,6 +30,11 @@
 - CI validates demo artifacts (`npm run demo`, `validate:events`, `validate:recon`).
 - GitHub Pages publishes this site on every merge to `main`.
 - ADRs capture irreversible decisions ([0001](adr/0001-dvp-only.md), [0002](adr/0002-rail-agnostic.md)).
+
+## Market snapshot
+
+- Economics JSON lives in [`../market/economics.sample.json`](../market/economics.sample.json) and validates via [`../market/economics.schema.json`](../market/economics.schema.json).
+- Near-miss taxonomy for reconciliation is defined in [`specs/recon.breaks.schema.json`](specs/recon.breaks.schema.json).
 
 ## Contributing to docs
 

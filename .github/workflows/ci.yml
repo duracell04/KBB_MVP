@@ -30,8 +30,11 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Run demo & validations
+      - name: Run demo & validate events
         run: npm run ci:demo
+
+      - name: Validate recon breaks
+        run: npm run validate:recon
 
       - name: Recon summary
         run: |
@@ -51,5 +54,6 @@ jobs:
             out/events.validation.json
             out/recon.report.json
             out/recon.validation.json
+            out/recon.breaks.validation.json
           if-no-files-found: error
 

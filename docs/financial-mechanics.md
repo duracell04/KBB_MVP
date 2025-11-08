@@ -22,6 +22,7 @@ Handles end-of-month and leap-year edges; see [`contracts/lib/DayCount30_360.sol
 - Σ(coupons paid) ≤ Σ(theoretical accrual) at any checkpoint.
 - Accrual is monotonic over time.
 - DvP gating: no issuance or transfer if eligibility/lockup fails.
+- Economics snapshot JSON captures gross vs net APR (`market/economics.schema.json`).
 
 ## Testing commands
 
