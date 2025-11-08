@@ -8,21 +8,21 @@
 accrual = notional × (couponRateBps / 10_000) × (days / 360)
 ```
 
-Implementation: [`contracts/lib/DayCount.sol`](../contracts/lib/DayCount.sol)
+Implementation: [`contracts/lib/DayCount.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/lib/DayCount.sol)
 
 - Use calendar day differences.
 - Round to nearest cent via integer math in servicing.
 
 ## 30/360 (US)
 
-Handles end-of-month and leap-year edges; see [`contracts/lib/DayCount30_360.sol`](../contracts/lib/DayCount30_360.sol) and [`test/DayCount30_360.t.sol`](../test/DayCount30_360.t.sol).
+Handles end-of-month and leap-year edges; see [`contracts/lib/DayCount30_360.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/lib/DayCount30_360.sol) and [`test/DayCount30_360.t.sol`](https://github.com/duracell04/KBB_MVP/blob/main/test/DayCount30_360.t.sol).
 
 ## Invariants
 
 - Σ(coupons paid) ≤ Σ(theoretical accrual) at any checkpoint.
 - Accrual is monotonic over time.
 - DvP gating: no issuance or transfer if eligibility/lockup fails.
-- Economics snapshot JSON captures gross vs net APR (`market/economics.schema.json`).
+- Economics snapshot JSON captures gross vs net APR ([`market/economics.schema.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.schema.json)).
 
 ## Testing commands
 

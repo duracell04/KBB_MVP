@@ -24,8 +24,8 @@ Adapters turn rail-specific evidence into normalized settlement records consumed
 
 ## Demo artifacts
 
-- [`ops/examples/simulate-dvp.ts`](../ops/examples/simulate-dvp.ts) — mocks settlement evidence & events.
-- [`ops/recon/recon.py`](../ops/recon/recon.py) — joins normalized evidence ↔ events.
+- [`ops/examples/simulate-dvp.ts`](https://github.com/duracell04/KBB_MVP/blob/main/ops/examples/simulate-dvp.ts) — mocks settlement evidence & events.
+- [`ops/recon/recon.py`](https://github.com/duracell04/KBB_MVP/blob/main/ops/recon/recon.py) — joins normalized evidence ↔ events.
 
 ## Implementation notes
 
