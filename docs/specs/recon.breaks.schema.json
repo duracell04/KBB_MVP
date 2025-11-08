@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KBB Recon Break",
+  "type": "object",
+  "required": ["kind", "event"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "MISSING_RAIL",
+        "AMOUNT_MISMATCH",
+        "CURRENCY_MISMATCH",
+        "DUPLICATE_REF",
+        "STALE_VALUEDATE"
+      ]
+    },
+    "event": { "type": "object" },
+    "rail": { "type": ["object", "null"] }
+  },
+  "additionalProperties": true
+}

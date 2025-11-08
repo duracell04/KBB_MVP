@@ -5,8 +5,8 @@
 ## Demo flow
 
 1. `npm run demo` — simulates DvP, emits events, and writes `out/recon.report.json`.
-2. `npm run validate:recon` — validates the recon report against [`specs/recon.report.schema.json`](specs/recon.report.schema.json).
-3. Inspect `out/recon.report.json` to confirm `matched[]` vs `breaks[]`.
+2. `npm run validate:recon` — validates the report and break taxonomy against [`specs/recon.report.schema.json`](specs/recon.report.schema.json) and [`specs/recon.breaks.schema.json`](specs/recon.breaks.schema.json).
+3. Inspect `out/recon.report.json` to confirm `matched[]` vs `breaks[]`; validation outputs land in `out/recon.validation.json` and `out/recon.breaks.validation.json`.
 
 ### Sample inputs
 
@@ -29,6 +29,33 @@
   "breaks": []
 }
 ```
+
+When a near-miss surfaces, each break carries the taxonomy `kind`:
+
+```json
+{
+  "kind": "AMOUNT_MISMATCH",
+  "event": {
+    "settlementRef": "2025-10-15/MsgId:DEF456",
+    "amount": 100050,
+    "currency": "USD"
+  },
+  "rail": {
+    "amount": "100000",
+    "currency": "USD"
+  }
+}
+```
+
+### Near-miss taxonomy
+
+| Kind | When it fires |
+| --- | --- |
+| `MISSING_RAIL` | No rail record found for the emitted `settlementRef`. |
+| `AMOUNT_MISMATCH` | Rail and event disagree on integer amount (after string coercion). |
+| `CURRENCY_MISMATCH` | Currency codes diverge. |
+| `DUPLICATE_REF` | Same `settlementRef` observed more than once in a run. |
+| `STALE_VALUEDATE` | Event and rail provide conflicting `valueDate` values. |
 
 ## Production considerations
 

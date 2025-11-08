@@ -19,6 +19,7 @@ Investor → Escrow (regulated rails) → Settlement Adapter → DvP Orchestrato
 
 - **DvP discipline:** No issuance without verified evidence.
 - **Permissioned transfers:** Eligibility/lockups enforced on-chain.
+- **Registry gate:** DvP orchestrator checks eligibility & lockup expiry before settle/transfer.
 - **Deterministic reconciliation:** Every lifecycle event is joinable to rail evidence.
 - **Upgrade safety (roadmap):** Timelocked upgrades; emergency pause documented.
 

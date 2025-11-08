@@ -1,29 +1,57 @@
 #!/usr/bin/env ts-node
-import fs from "node:fs";
-import Ajv from "ajv/dist/2020.js";
+import fs from "fs";
+import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-const schemaPath = "docs/specs/recon.report.schema.json";
-const reportPath = process.argv[2] ?? "out/recon.report.json";
-
-const ajv = new Ajv({ allErrors: true, strict: false });
+const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
 
-const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
-const data = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+const reportSchema = JSON.parse(
+  fs.readFileSync("docs/specs/recon.report.schema.json", "utf8")
+);
+const breakSchema = JSON.parse(
+  fs.readFileSync("docs/specs/recon.breaks.schema.json", "utf8")
+);
+const data = JSON.parse(
+  fs.readFileSync("out/recon.report.json", "utf8")
+);
 
-const validate = ajv.compile(schema);
-const ok = validate(data);
+const validateReport = ajv.compile(reportSchema);
+const reportValid = validateReport(data);
+const reportErrors = JSON.parse(
+  JSON.stringify(validateReport.errors ?? [])
+);
+
+const validateBreak = ajv.compile(breakSchema);
+const breaks = [...(data.breaks ?? [])];
+const breakErrors = breaks.flatMap((entry, index) => {
+  if (validateBreak(entry)) {
+    return [];
+  }
+
+  const copied = JSON.parse(JSON.stringify(validateBreak.errors ?? []));
+  return [{ index, errors: copied }];
+});
 
 fs.mkdirSync("out", { recursive: true });
 fs.writeFileSync(
   "out/recon.validation.json",
-  JSON.stringify({ valid: ok, errors: validate.errors ?? [] }, null, 2)
+  JSON.stringify({ valid: reportValid, errors: reportErrors }, null, 2)
+);
+fs.writeFileSync(
+  "out/recon.breaks.validation.json",
+  JSON.stringify({ errors: breakErrors }, null, 2)
 );
 
-if (!ok) {
-  console.error("❌ recon invalid");
+if (!reportValid) {
+  console.error("❌ recon report invalid");
   process.exit(1);
 }
 
-console.log("✅ recon valid");
+if (breakErrors.length) {
+  console.error("❌ recon breaks invalid");
+  process.exit(1);
+}
+
+console.log("✅ recon report valid");
+console.log("✅ recon breaks valid");

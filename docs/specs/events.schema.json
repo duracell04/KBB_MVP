@@ -7,7 +7,15 @@
       {
         "title": "SubscriptionSettled",
         "type": "object",
-        "required": ["event","orderId","investor","amount","currency","settlementRef","settlementNetwork"],
+        "required": [
+          "event",
+          "orderId",
+          "investor",
+          "amount",
+          "currency",
+          "settlementRef",
+          "settlementNetwork"
+        ],
         "properties": {
           "event": { "const": "SubscriptionSettled" },
           "orderId": { "type": "string", "minLength": 1 },
@@ -17,7 +25,14 @@
           "settlementRef": { "type": "string", "minLength": 1 },
           "settlementNetwork": {
             "type": "string",
-            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+            "enum": [
+              "ISO20022",
+              "SWIFT",
+              "SEPA",
+              "ACH",
+              "FPS",
+              "ONCHAIN_STABLECOIN"
+            ]
           }
         },
         "additionalProperties": false
@@ -25,7 +40,15 @@
       {
         "title": "CouponPaid",
         "type": "object",
-        "required": ["event","periodId","grossAmount","withholding","netAmount","settlementRef","settlementNetwork"],
+        "required": [
+          "event",
+          "periodId",
+          "grossAmount",
+          "withholding",
+          "netAmount",
+          "settlementRef",
+          "settlementNetwork"
+        ],
         "properties": {
           "event": { "const": "CouponPaid" },
           "periodId": { "type": "integer", "minimum": 0 },
@@ -35,7 +58,14 @@
           "settlementRef": { "type": "string", "minLength": 1 },
           "settlementNetwork": {
             "type": "string",
-            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+            "enum": [
+              "ISO20022",
+              "SWIFT",
+              "SEPA",
+              "ACH",
+              "FPS",
+              "ONCHAIN_STABLECOIN"
+            ]
           }
         },
         "additionalProperties": false
@@ -43,15 +73,121 @@
       {
         "title": "RedemptionPaid",
         "type": "object",
-        "required": ["event","amount","settlementRef","settlementNetwork"],
+        "required": ["event", "amount", "settlementRef", "settlementNetwork"],
         "properties": {
           "event": { "const": "RedemptionPaid" },
           "amount": { "type": "integer", "minimum": 0 },
           "settlementRef": { "type": "string", "minLength": 1 },
           "settlementNetwork": {
             "type": "string",
-            "enum": ["ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"]
+            "enum": [
+              "ISO20022",
+              "SWIFT",
+              "SEPA",
+              "ACH",
+              "FPS",
+              "ONCHAIN_STABLECOIN"
+            ]
           }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "CollateralLocked",
+        "type": "object",
+        "required": [
+          "event",
+          "collateralId",
+          "type",
+          "value",
+          "currency",
+          "valuationDate",
+          "custodian",
+          "settlementRef",
+          "settlementNetwork"
+        ],
+        "properties": {
+          "event": { "const": "CollateralLocked" },
+          "collateralId": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "INVENTORY",
+              "RECEIVABLE",
+              "EQUIPMENT",
+              "CASH",
+              "OTHER"
+            ]
+          },
+          "value": { "type": "integer", "minimum": 0 },
+          "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "valuationDate": { "type": "string", "format": "date" },
+          "custodian": { "type": "string" },
+          "settlementRef": { "type": "string" },
+          "settlementNetwork": {
+            "type": "string",
+            "enum": [
+              "ISO20022",
+              "SWIFT",
+              "SEPA",
+              "ACH",
+              "FPS",
+              "ONCHAIN_STABLECOIN"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "CollateralReleased",
+        "type": "object",
+        "required": ["event", "collateralId", "reason"],
+        "properties": {
+          "event": { "const": "CollateralReleased" },
+          "collateralId": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "ProvisionFunded",
+        "type": "object",
+        "required": [
+          "event",
+          "amount",
+          "currency",
+          "settlementRef",
+          "settlementNetwork"
+        ],
+        "properties": {
+          "event": { "const": "ProvisionFunded" },
+          "amount": { "type": "integer", "minimum": 0 },
+          "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "settlementRef": { "type": "string" },
+          "settlementNetwork": {
+            "type": "string",
+            "enum": [
+              "ISO20022",
+              "SWIFT",
+              "SEPA",
+              "ACH",
+              "FPS",
+              "ONCHAIN_STABLECOIN"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "title": "ProvisionPaidOut",
+        "type": "object",
+        "required": ["event", "claimId", "amount", "currency", "reason"],
+        "properties": {
+          "event": { "const": "ProvisionPaidOut" },
+          "claimId": { "type": "string" },
+          "amount": { "type": "integer", "minimum": 0 },
+          "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "reason": { "type": "string" }
         },
         "additionalProperties": false
       }

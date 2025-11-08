@@ -14,6 +14,7 @@ markdown_extensions:
 nav:
   - Overview: index.md
   - Architecture: architecture.md
+  - Eligibility: eligibility.md
   - Quickstart: quickstart.md
   - Events & Reconciliation:
       - Events: events.md
@@ -21,6 +22,7 @@ nav:
       - Schemas:
           - Events schema (JSON): specs/events.schema.json
           - Recon report schema (JSON): specs/recon.report.schema.json
+          - Recon break schema (JSON): specs/recon.breaks.schema.json
   - Finance: financial-mechanics.md
   - Contracts: contracts.md
   - Compliance: compliance.md
