@@ -5,13 +5,12 @@
 ```bash
 forge build && forge test -vv
 npm ci
-npm run demo          # → writes out/events.sample.json and out/recon.report.json
-npm run validate:events
-npm run validate:recon
+npm run demo:all      # → simulates DvP, runs the indexer, recon, and validators
 ```
 
 ### Generated artifacts
 
+- `out/events.latest.json`: Indexer materialized events (falls back to the sample when no RPC is set).
 - `out/events.sample.json`: Demo lifecycle events (DvP simulation).
 - `out/recon.report.json`: Deterministic join results (`matched[]`, `breaks[]`).
 - `out/events.validation.json` & `out/recon.validation.json`: AJV validation results.

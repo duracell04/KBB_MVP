@@ -15,9 +15,7 @@ KBB_MVP demonstrates how to keep a private debt register on-chain while cash set
 ```bash
 forge build && forge test -vv
 npm ci
-npm run demo
-npm run validate:events
-npm run validate:recon
+npm run demo:all
 ```
 
 See [docs/quickstart.md](docs/quickstart.md) for artifact locations and troubleshooting tips.

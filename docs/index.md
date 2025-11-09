@@ -27,7 +27,7 @@
 
 ## Tooling & automation
 
-- CI validates demo artifacts (`npm run demo`, `validate:events`, `validate:recon`).
+- CI validates demo artifacts (`npm run demo:all`).
 - GitHub Pages publishes this site on every merge to `main`.
 - ADRs capture irreversible decisions ([0001](adr/0001-dvp-only.md), [0002](adr/0002-rail-agnostic.md)).
 

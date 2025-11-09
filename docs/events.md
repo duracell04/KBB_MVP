@@ -82,8 +82,8 @@ settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
 
 ## Consuming events
 
-1. Generate events via `npm run demo` (writes to `out/events.sample.json`).
-2. Validate shape via `npm run validate:events` (AJV against schema).
+1. Generate events via `npm run demo:all` (writes to `out/events.latest.json` and `out/events.sample.json`).
+2. Validate shape via `npm run validate:events` (AJV against schema, part of `demo:all`).
 3. Join with rail evidence using the reconciliation script.
 
 ## Change control

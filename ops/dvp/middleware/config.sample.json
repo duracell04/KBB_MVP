@@ -1,0 +1,21 @@
+{
+  "investorAllowlist": [
+    "0x000000000000000000000000000000000000BEEF",
+    "0x000000000000000000000000000000000000FEED"
+  ],
+  "allowedJurisdictions": ["US", "GB"],
+  "allowedSettlementNetworks": [
+    "ISO20022",
+    "SWIFT",
+    "SEPA",
+    "ACH",
+    "FPS",
+    "ONCHAIN_STABLECOIN"
+  ],
+  "supportedCurrencies": ["USD", "EUR"],
+  "minimumAmount": 1000,
+  "exposureLimits": {
+    "0x000000000000000000000000000000000000beef": 500000,
+    "0x000000000000000000000000000000000000feed": 250000
+  }
+}

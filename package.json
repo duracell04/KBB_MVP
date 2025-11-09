@@ -6,21 +6,29 @@
   "scripts": {
     "ops:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
     "demo:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
-    "demo:recon": "bash -c 'mkdir -p out && python3 ops/recon/recon.py ops/recon/rails.sample.csv out/events.sample.json > out/recon.report.json && cat out/recon.report.json'",
+    "demo:recon": "bash -c 'mkdir -p out && EVENTS_JSON=out/events.latest.json; if [ ! -f \"$EVENTS_JSON\" ]; then EVENTS_JSON=out/events.sample.json; fi; python3 ops/recon/recon.py ops/recon/rails.sample.csv \"$EVENTS_JSON\" > out/recon.report.json && cat out/recon.report.json'",
     "demo": "npm run demo:simulate-dvp && npm run demo:recon",
+    "index": "node --loader ts-node/esm ops/indexer/indexer.ts",
+    "demo:all": "npm run demo && npm run index && npm run validate:events && npm run validate:recon",
     "validate:events": "node --loader ts-node/esm ops/validate-events.ts",
     "validate:recon": "node --loader ts-node/esm ops/validate-recon.ts",
-    "ci:demo": "npm run demo && npm run validate:events",
+    "ci:demo": "npm run demo:all",
+    "typechain": "typechain --target ethers-v6 --out-dir types 'ops/abi/*.json'",
     "frontend:dev": "npm --prefix apps/frontend run dev",
     "frontend:build": "npm --prefix apps/frontend run build",
     "frontend:preview": "npm --prefix apps/frontend run preview"
   },
-  "dependencies": {},
+  "dependencies": {
+    "viem": "^2.18.8"
+  },
   "devDependencies": {
     "@types/node": "^22.7.4",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "@typechain/ethers-v6": "^0.5.1",
+    "ethers": "^6.13.4",
     "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
     "typescript": "^5.6.3"
   },
   "workspaces": [
