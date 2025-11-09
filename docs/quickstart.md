@@ -1,29 +1,39 @@
-# Quickstart (60 seconds)
+# Quickstart
 
-> Requires Foundry & Node 20. CI runs the same steps and uploads artifacts.
+**Prereqs**
+- Foundry installed (`foundryup`)
+- Node.js ≥ 20 (for ops/adapters demos)
+
+## 1) Build & test
 
 ```bash
 forge build && forge test -vv
-npm ci
-npm run demo:all      # → simulates DvP, runs the indexer, recon, and validators
 ```
 
-### Generated artifacts
+Artifacts land in `out/` (contracts) and `cache/`.
 
-- `out/events.latest.json`: Indexer materialized events (falls back to the sample when no RPC is set).
-- `out/events.sample.json`: Demo lifecycle events (DvP simulation).
-- `out/recon.report.json`: Deterministic join results (`matched[]`, `breaks[]`).
-- `out/events.validation.json` & `out/recon.validation.json`: AJV validation results.
+## 2) Run the end-to-end demo
 
-### Where things live
+```bash
+npm ci
+npm run demo:all
+```
 
-- [Event schema](specs/events.schema.json)
-- [Recon schema](specs/recon.report.schema.json)
-- Rails evidence sample: [`ops/recon/rails.sample.csv`](https://github.com/duracell04/KBB_MVP/blob/main/ops/recon/rails.sample.csv)
-- Demo generator: [`ops/examples/simulate-dvp.ts`](https://github.com/duracell04/KBB_MVP/blob/main/ops/examples/simulate-dvp.ts)
+What the demo does:
 
-### Troubleshooting
+* Spins a local chain, deploys `FixedIncomeNote`
+* Simulates **DvP** on a chosen rail
+* Emits `SubscriptionSettled` with `(settlementRef, settlementNetwork)`
+* Writes example outputs under `out/demo/`:
 
-- Delete `out/` if you need a clean run.
-- Ensure Foundry is installed (`curl -L https://foundry.paradigm.xyz | bash`).
-- If Python is missing, install `python3` for the reconciliation script.
+  * `onchain.events.json` — captured lifecycle events
+  * `bank.sample.csv` — mocked bank statement rows
+  * `recon.report.md` — reconciliation result
+
+## 3) Troubleshooting
+
+* `forge: command not found` → install Foundry then `foundryup`
+* Solc mismatch → `foundryup` and retry
+* Node errors → `nvm use 20` or install Node 20+
+
+**Next:** understand the flow → [architecture.md](./architecture.md)

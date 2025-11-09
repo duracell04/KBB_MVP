@@ -1,35 +1,43 @@
-# Settlement adapters (rail-agnostic)
+# Settlement Adapters
 
-Adapters turn rail-specific evidence into normalized settlement records consumed by the DvP orchestrator.
+Adapters translate rail-native settlement **evidence** into the canonical event shape.
 
-## Evidence sources
+## Checklist
 
-- ISO 20022 `camt.053/.054`
-- SWIFT MT940/MT950
-- SEPA Credit Transfer reports
-- ACH / FPS statements
-- Permitted stablecoin transfers (tx hash + attestation)
+1. **Evidence input**: ingest rail message/statement and extract:
+   - `amount`, `currency`, `valueDate`, `settlementRef`, `settlementNetwork`
+2. **Validation**:
+   - signature / webhook authentication (if applicable)
+   - idempotency key on `(settlementRef, settlementNetwork)`
+3. **Attestation**:
+   - call DvP orchestrator with normalized evidence
+4. **Observability**:
+   - write adapter logs and an `evidence.jsonl` trail
+5. **Tests**:
+   - golden fixtures per rail and negative cases (stale, duplicate, underfunded)
 
-## Adapter output
+## Minimal pseudo-code
 
-```
-{
-  amount: number,
-  currency: string,
-  valueDate: string,
-  settlementRef: string,
-  settlementNetwork: "ISO20022" | "SWIFT" | "SEPA" | "ACH" | "FPS" | "ONCHAIN_STABLECOIN"
+```ts
+type Evidence = {
+  amount: bigint; ccy: 'EUR'|'USD'; valueDate: string;
+  settlementRef: string; settlementNetwork: 'ISO20022'|'SEPA'|'ACH'|'ONCHAIN_STABLECOIN';
+}
+
+async function handleRailWebhook(msg: RailMessage) {
+  const ev = parseEvidence(msg);         // 1
+  validate(ev, msg.signature);           // 2
+  await attestToDvP(ev);                  // 3
+  await appendAuditTrail(ev, msg);        // 4
 }
 ```
 
-## Demo artifacts
+## Test matrix
 
-- [`ops/examples/simulate-dvp.ts`](https://github.com/duracell04/KBB_MVP/blob/main/ops/examples/simulate-dvp.ts) — mocks settlement evidence & events.
-- [`ops/recon/recon.py`](https://github.com/duracell04/KBB_MVP/blob/main/ops/recon/recon.py) — joins normalized evidence ↔ events.
-
-## Implementation notes
-
-- Preserve original message identifiers; do not invent refs.
-- Capture `valueDate` for accrual boundary checks.
-- Sign adapter outputs before handing to on-chain components.
-- Maintain adapter-specific runbooks for incident response.
+| Case                      | Expectation                     |
+| ------------------------- | ------------------------------- |
+| Correct funding           | `SubscriptionSettled` emitted   |
+| Duplicate `settlementRef` | Second call is ignored/rejected |
+| Wrong currency            | Rejected                        |
+| Underfunded               | Rejected                        |
+| Future value date         | Pending or rejected by policy   |

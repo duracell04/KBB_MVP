@@ -1,30 +1,38 @@
 # Architecture
 
-**Rails:** ISO 20022 / SWIFT / SEPA / ACH / FPS / ONCHAIN_STABLECOIN  
-**Register:** Permissioned token (`FixedIncomeNote`, ERC-3643-compatible)  
-**DvP:** Mint/transfer only after **verified** settlement evidence
+## Design principle
+Cash settles on regulated rails. The token is the **register & event emitter**.
 
-## Flow at a glance
+## Components
+- **Escrow (off-chain rail)** — receives funds and exposes settlement evidence.
+- **Settlement Adapter** — verifies evidence and formats it.
+- **DvP Orchestrator** — mints/transfers only when evidence is valid.
+- **FixedIncomeNote** — permissioned instrument, emits lifecycle events.
+- **Reconciliation** — deterministic join between bank statements and on-chain events.
 
-Investor → Escrow (regulated rails) → Settlement Adapter → DvP Orchestrator → FixedIncomeNote (events with `settlementRef`) → Reconciliation report
+## Primary market (DvP) sequence
 
-## Day in the life
+```mermaid
+sequenceDiagram
+  participant Inv as Investor
+  participant Bank as Escrow (Rail)
+  participant Ad as Settlement Adapter
+  participant DvP as DvP Orchestrator
+  participant Note as FixedIncomeNote
+  participant Log as On-chain Events
 
-1. Investor subscribes; eligibility & lockups enforced.
-2. Investor funds via supported rail; adapter parses evidence (camt.053/054, SWIFT/SEPA/ACH/FPS, or permitted stablecoin tx).
-3. Orchestrator verifies funding window, mints/transfers atomically, emits `SubscriptionSettled` with rail references.
-4. Servicing wires coupons/redemptions; note emits `CouponPaid` / `RedemptionPaid` with identical references for deterministic joins.
+  Inv->>Bank: Wire funds with rail-native reference
+  Bank->>Ad: Settlement advice / evidence
+  Ad->>DvP: attest(amount, ccy, valueDate, settlementRef, network)
+  DvP->>Note: settleSubscription(...)
+  Note-->>Log: SubscriptionSettled(...)
+```
 
-## Guardrails
+## Servicing (Coupons & Redemption)
 
-- **DvP discipline:** No issuance without verified evidence.
-- **Permissioned transfers:** Eligibility/lockups enforced on-chain.
-- **Registry gate:** DvP orchestrator checks eligibility & lockup expiry before settle/transfer.
-- **Deterministic reconciliation:** Every lifecycle event is joinable to rail evidence.
-- **Upgrade safety (roadmap):** Timelocked upgrades; emergency pause documented.
+Escrow wires cash; `CouponPaid` / `RedemptionPaid` events mirror rail references for audit.
 
-## Further reading
+**See also**
 
-- [Events](events.md) for canonical lifecycle messages.
-- [Adapters](adapters.md) for rail integrations.
-- [Reconciliation](recon.md) for deterministic joins.
+* Event schema → [events.md](./events.md)
+* Reconciliation → [recon.md](./recon.md)

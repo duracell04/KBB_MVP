@@ -1,34 +1,16 @@
-# Financial mechanics
+# Financial Mechanics
 
-**Accrual discipline** relies on deterministic day-count conventions with explicit invariants.
+## Day-count & accrual
+- Support 30E/360 and Actual/Actual (ISDA) in helpers.
+- Accrual formula: `accrued = notional * rate * dayCountFraction`.
 
-## ACT/360
+## Coupon example
+- Notional: 1,000,000
+- Rate: 6% p.a.
+- DCF (30E/360): 0.5
+- Gross coupon: `1_000_000 * 0.06 * 0.5 = 30_000`
 
-```
-accrual = notional × (couponRateBps / 10_000) × (days / 360)
-```
-
-Implementation: [`contracts/lib/DayCount.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/lib/DayCount.sol)
-
-- Use calendar day differences.
-- Round to nearest cent via integer math in servicing.
-
-## 30/360 (US)
-
-Handles end-of-month and leap-year edges; see [`contracts/lib/DayCount30_360.sol`](https://github.com/duracell04/KBB_MVP/blob/main/contracts/lib/DayCount30_360.sol) and [`test/DayCount30_360.t.sol`](https://github.com/duracell04/KBB_MVP/blob/main/test/DayCount30_360.t.sol).
-
-## Invariants
-
-- Σ(coupons paid) ≤ Σ(theoretical accrual) at any checkpoint.
-- Accrual is monotonic over time.
-- DvP gating: no issuance or transfer if eligibility/lockup fails.
-- Economics snapshot JSON captures gross vs net APR ([`market/economics.schema.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.schema.json)).
-
-## Testing commands
-
-```bash
-forge test -vv --match-contract DayCountTest
-forge test -vv --match-contract DayCount30_360Test
-```
-
-CI runs `forge test -vv` to cover accrual math every push.
+**Rounding policy**
+- Quantize to token decimals
+- Emit `grossAmount`, `withholding`, `netAmount` in `CouponPaid`
+- Test boundaries: odd period lengths, leap days, tiny balances

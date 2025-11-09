@@ -1,93 +1,72 @@
-# Lifecycle events (canonical)
+# Lifecycle Events & Schema
 
-```text
-SubscriptionSettled(orderId, investor, amount, currency, settlementRef, settlementNetwork)
-CouponPaid(periodId, grossAmount, withholding, netAmount, settlementRef, settlementNetwork)
-RedemptionPaid(amount, settlementRef, settlementNetwork)
-CollateralLocked(collateralId, type, value, currency, valuationDate, custodian, settlementRef, settlementNetwork)
-CollateralReleased(collateralId, reason)
-ProvisionFunded(amount, currency, settlementRef, settlementNetwork)
-ProvisionPaidOut(claimId, amount, currency, reason)
+All lifecycle events carry:
+- `settlementRef` — the **rail-native identifier** (UETR, EndToEndId, TxHash, etc.)
+- `settlementNetwork` — one of: `ISO20022 | SWIFT | SEPA | ACH | FPS | ONCHAIN_STABLECOIN`
 
-settlementNetwork ∈ {"ISO20022","SWIFT","SEPA","ACH","FPS","ONCHAIN_STABLECOIN"}
-settlementRef     = ISO MsgId/UETR, SWIFT/SEPA ref, or on-chain tx hash
+## SubscriptionSettled
+
+| Field              | Type     | Semantics                                           | Example                           |
+|------------------:|:---------|:----------------------------------------------------|:----------------------------------|
+| `orderId`         | bytes32  | Correlates primary order                            | `0x2b1c…d4`                       |
+| `investor`        | address  | Whitelisted investor                                | `0x0000…FEE1`                     |
+| `amount`          | uint256  | Face value units (token decimals)                   | `100000000`                       |
+| `currency`        | string   | ISO 4217 currency code                              | `EUR`                             |
+| `settlementRef`   | string   | Rail evidence reference                             | `1f9c20d4-...`                    |
+| `settlementNetwork`| string  | Rail identifier                                     | `ISO20022`                        |
+
+**ISO 20022 / UETR example**
+```json
+{
+  "event": "SubscriptionSettled",
+  "orderId": "0x2b1c...d4",
+  "investor": "0x000000000000000000000000000000000000FEE1",
+  "amount": "100000000",
+  "currency": "EUR",
+  "settlementRef": "1f9c20d4-4c1e-11ef-9a9a-0242ac120002",
+  "settlementNetwork": "ISO20022"
+}
 ```
 
-**Machine schema:** [`specs/events.schema.json`](specs/events.schema.json)
-
-## Example
+**SEPA / EndToEndId example**
 
 ```json
-[
-  {
-    "event": "SubscriptionSettled",
-    "orderId": "0x4f5244455231",
-    "investor": "0x000000000000000000000000000000000000BEEF",
-    "amount": 100000,
-    "currency": "USD",
-    "settlementRef": "2025-10-15/MsgId:ABC123",
-    "settlementNetwork": "ISO20022"
-  },
-  {
-    "event": "CollateralLocked",
-    "collateralId": "COLL-1",
-    "type": "INVENTORY",
-    "value": 250000,
-    "currency": "USD",
-    "valuationDate": "2026-01-15",
-    "custodian": "EscrowCo",
-    "settlementRef": "2026-01-15/MsgId:ABC123",
-    "settlementNetwork": "ISO20022"
-  },
-  {
-    "event": "ProvisionFunded",
-    "amount": 50000,
-    "currency": "USD",
-    "settlementRef": "2026-01-16/MsgId:DEF456",
-    "settlementNetwork": "ISO20022"
-  },
-  {
-    "event": "CollateralReleased",
-    "collateralId": "COLL-1",
-    "reason": "loan repaid"
-  },
-  {
-    "event": "ProvisionPaidOut",
-    "claimId": "CLAIM-1",
-    "amount": 10000,
-    "currency": "USD",
-    "reason": "Borrower default coverage"
-  }
-]
+{
+  "event": "SubscriptionSettled",
+  "currency": "EUR",
+  "settlementRef": "E2E-2025-11-10-000123",
+  "settlementNetwork": "SEPA"
+}
 ```
 
-## Semantics
+**On-chain stablecoin example**
 
-- `settlementRef` is the join key to off-chain statements (MsgId/UETR, bank reference, or on-chain tx hash).
-- `settlementNetwork` identifies the rail; use uppercase constants.
-- Amounts are integers; apply ISO currency minor units.
-- Emitted events must be monotonic per lifecycle stage (e.g., coupon periods cannot regress).
-- Collateral custody is surfaced through `CollateralLocked` / `CollateralReleased`.
-- Provision reserves are transparent via `ProvisionFunded` / `ProvisionPaidOut`.
+```json
+{
+  "event": "SubscriptionSettled",
+  "currency": "USD",
+  "settlementRef": "0x08c379a0...txHash",
+  "settlementNetwork": "ONCHAIN_STABLECOIN"
+}
+```
 
-## Collateral lifecycle
+## CouponPaid
 
-- Locking emits custody metadata (`custodian`, `valuationDate`, `settlementRef`, rail) for audit trails.
-- Release reasons document why collateral is freed (e.g., repayment, substitution, waiver).
+| Field              | Type    | Meaning             |
+|------------------:|:--------|:--------------------|
+| `periodId`         | uint256 | Coupon period index |
+| `grossAmount`      | uint256 | Before withholding  |
+| `withholding`      | uint256 | Withheld amount     |
+| `netAmount`        | uint256 | Paid amount         |
+| `settlementRef`    | string  | Rail reference      |
+| `settlementNetwork`| string  | Rail id             |
 
-## Provision reserves
+## RedemptionPaid
 
-- `ProvisionFunded` ties reserve top-ups to the funding rail evidence.
-- `ProvisionPaidOut` details drawdowns with a claim identifier and free-form reason.
+| Field              | Type    | Meaning          |
+|------------------:|:--------|:-----------------|
+| `amount`           | uint256 | Principal amount |
+| `settlementRef`    | string  | Rail reference   |
+| `settlementNetwork`| string  | Rail id          |
 
-## Consuming events
-
-1. Generate events via `npm run demo:all` (writes to `out/events.latest.json` and `out/events.sample.json`).
-2. Validate shape via `npm run validate:events` (AJV against schema, part of `demo:all`).
-3. Join with rail evidence using the reconciliation script.
-
-## Change control
-
-- If you add/remove fields, update the schema and regen fixtures.
-- Version new event shapes via ADR & README callouts.
-- Maintain backwards compatibility for downstream consumers when feasible.
+> **Compatibility rule:** Never repurpose fields. Add new data via **new events** to avoid breaking consumers.
