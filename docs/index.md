@@ -1,45 +1,31 @@
-# KBB_MVP — Token-registered private debt on regulated rails
+# KBB_MVP — Token-registered private debt, cash-settled on regulated rails
 
-**What:** A fixed-income note where cash settles on ISO 20022 / SWIFT / SEPA / ACH / FPS (or permitted stablecoins). The chain acts as the **register & distribution** layer.
+**What it is:** A reference MVP showing how to keep a **private debt register on-chain** while **cash settles on regulated rails** (ISO 20022/SWIFT/SEPA/etc.). DvP is mandatory; lifecycle events carry deterministic banking references for reconciliation.
 
-**Why:** Make private debt programmable & auditable—without claiming on-chain payments. Every lifecycle event references verifiable settlement evidence.
+**Who it’s for**
+- **Issuer Ops** — run primary issuance and servicing on existing rails with audit-grade on-chain evidence.
+- **Integration Partners** — add new settlement rails (adapters) and reconcile statements to on-chain events.
+- **Solidity Devs** — extend the instrument, eligibility checks, and lifecycle events.
 
-- **DvP-only issuance**: Mint/transfer after verified settlement evidence.
-- **Permissioned transfers**: ERC-3643-compatible eligibility & lockups.
-- **Deterministic reconciliation**: Events emit `settlementRef` / `settlementNetwork` that match rail statements.
-- **Collateral transparency**: Custody events document who holds what and when.
-- **Provision reserves**: Funding & payouts are evented for auditability.
+## TL;DR (5 bullets)
+1. Cash stays on regulated rails; the **token is the register** and event source of truth.
+2. **DvP only**: tokens mint/transfer after verified settlement evidence.
+3. All lifecycle events carry `settlementRef` and `settlementNetwork` for **deterministic joins**.
+4. Economics snapshot lives in `market/economics.sample.json` (validates against `economics.schema.json`).
+5. Full docs site builds with MkDocs (see **Quickstart**).
 
-➡️ Start with the [Quickstart](quickstart.md) for the 60-second runnable demo.
+## Start here
+- **Quickstart (5 min)** → [quickstart.md](./quickstart.md)
+- **System & DvP** → [architecture.md](./architecture.md)
+- **Event Schema** → [events.md](./events.md)
+- **Add a rail** → [adapters.md](./adapters.md)
+- **Reconciliation** → [recon.md](./recon.md)
 
-## Key flows
+## Repository map (clickable)
+- `contracts/` — instrument + utils
+- `ops/` — demo, reconciliation, validators
+- `apps/frontend/` — sample workspace
+- `assets/diagrams/` — mermaid sources + exported diagrams
+- `docs/` — this site (MkDocs)
 
-| Flow | What to read |
-| --- | --- |
-| System & DvP overview | [Architecture](architecture.md) |
-| Lifecycle events | [Events](events.md) & [schemas](specs/events.schema.json) |
-| Reconciliation | [Recon runbook](recon.md) |
-| Finance math | [Financial mechanics](financial-mechanics.md) |
-| Contracts | [Contracts](contracts.md) (NatSpec-facing) |
-| Eligibility seam | [Eligibility](eligibility.md) |
-| Compliance preview | [Compliance](compliance.md) |
-| Integrations | [Adapters](adapters.md) |
-
-## Tooling & automation
-
-- CI validates demo artifacts (`npm run demo:all`).
-- GitHub Pages publishes this site on every merge to `main`.
-- ADRs capture irreversible decisions ([0001](adr/0001-dvp-only.md), [0002](adr/0002-rail-agnostic.md)).
-
-## Market snapshot
-
-- Economics JSON lives in [`market/economics.sample.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.sample.json) and validates via [`market/economics.schema.json`](https://github.com/duracell04/KBB_MVP/blob/main/market/economics.schema.json).
-- Near-miss taxonomy for reconciliation is defined in [`specs/recon.breaks.schema.json`](specs/recon.breaks.schema.json).
-
-## Contributing to docs
-
-1. Keep docs actionable—include commands that run in CI.
-2. Update schemas & validations when event shapes change.
-3. Reference ADRs when making architectural changes.
-
-Docs are Markdown + JSON Schema. Build locally with `mkdocs serve` after installing `mkdocs-material`.
+> Legal note: Informational only; not an offer to sell or solicitation to buy any security.

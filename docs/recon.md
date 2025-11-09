@@ -1,71 +1,39 @@
 # Reconciliation
 
-**Goal:** Deterministic join between rail evidence and on-chain events via `settlementRef` and `settlementNetwork`.
+The join is **string-equal** on `(settlementRef, settlementNetwork)` between:
+- Rail statement rows (bank CSV, ISO 20022 camt, SWIFT MT, on-chain Tx)
+- On-chain events (`SubscriptionSettled`, `CouponPaid`, `RedemptionPaid`)
 
-## Demo flow
+## Example files (demo output)
+- `out/demo/bank.sample.csv`
+- `out/demo/onchain.events.json`
+- `out/demo/recon.report.md`
 
-1. `npm run demo:all` — runs the settlement simulator, indexes on-chain events (or falls back to the curated sample), executes recon, and validates the JSON artifacts.
-2. Inspect `out/events.latest.json` / `out/events.sample.json` (indexer output), `out/recon.report.json`, and the validation files in `out/` to confirm matches vs. breaks.
+## SQL-style join (conceptual)
 
-### Sample inputs
-
-- Rails CSV: [`ops/recon/rails.sample.csv`](https://github.com/duracell04/KBB_MVP/blob/main/ops/recon/rails.sample.csv)
-- Events JSON: `out/events.latest.json` (materialized by the indexer) or `out/events.sample.json` when no RPC is configured
-- Recon report: `out/recon.report.json`
-
-### Report shape
-
-```json
-{
-  "generatedAt": "2024-09-30T23:30:00Z",
-  "matched": [
-    {
-      "settlementRef": "2025-10-15/MsgId:ABC123",
-      "amount": 100000,
-      "currency": "USD"
-    }
-  ],
-  "breaks": []
-}
+```sql
+SELECT e.block_time, e.event, e.amount, s.value_date, s.amount
+FROM onchain_events e
+JOIN statements s
+  ON e.settlementRef = s.reference
+ AND e.settlementNetwork = s.network
+WHERE e.event IN ('SubscriptionSettled','CouponPaid','RedemptionPaid');
 ```
 
-When a near-miss surfaces, each break carries the taxonomy `kind`:
+## Python sketch
 
-```json
-{
-  "kind": "AMOUNT_MISMATCH",
-  "event": {
-    "settlementRef": "2025-10-15/MsgId:DEF456",
-    "amount": 100050,
-    "currency": "USD"
-  },
-  "rail": {
-    "amount": "100000",
-    "currency": "USD"
-  }
-}
+```python
+import pandas as pd
+e = pd.read_json('out/demo/onchain.events.json', lines=True)
+s = pd.read_csv('out/demo/bank.sample.csv')
+j = e.merge(s, left_on=['settlementRef','settlementNetwork'],
+              right_on=['reference','network'], how='left')
+assert j.reference.notna().all()
+j.to_markdown('out/demo/recon.report.md', index=False)
 ```
 
-### Near-miss taxonomy
+## Operational notes
 
-| Kind | When it fires |
-| --- | --- |
-| `MISSING_RAIL` | No rail record found for the emitted `settlementRef`. |
-| `AMOUNT_MISMATCH` | Rail and event disagree on integer amount (after string coercion). |
-| `CURRENCY_MISMATCH` | Currency codes diverge. |
-| `DUPLICATE_REF` | Same `settlementRef` observed more than once in a run. |
-| `STALE_VALUEDATE` | Event and rail provide conflicting `valueDate` values. |
-
-## Production considerations
-
-- **Normalization:** uppercase refs, strip whitespace, harmonize currency minor units.
-- **Tolerance bands:** capture near-miss matches (FX slippage, rounding).
-- **Duplicates:** flag duplicate `settlementRef` per rail/investor pair.
-- **Attestations:** persist immutable hashes of bank statements & recon outputs.
-- **Audit trail:** include user/time metadata for manual overrides.
-
-## Extending automation
-
-- Export recon metrics to monitoring (matched ratio, outstanding breaks).
-- Notify ops when `breaks[]` non-empty post-cutoff.
-- Retain historical reports for regulators/auditors.
+* **Idempotency:** dedupe by `(settlementRef, settlementNetwork)`
+* **Tolerances:** handle rounding differences for FX/fees with a small epsilon window
+* **Disputes:** unmatched pairs go to exception queue with raw evidence attached

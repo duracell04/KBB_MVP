@@ -1,26 +1,14 @@
-# Compliance (preview)
+# Compliance (Preview)
 
-`CovenantManager` tracks covenant signals (e.g., DSCR, LTV) and exposes a queryable status for custodians and auditors.
+**Scope**
+- MVP built for **operational evidence & reconciliation**, not legal opinions.
 
-## Data model
+**Assumptions**
+- Cash settlement occurs on regulated rails with institution-provided evidence.
+- Token acts as **register**, not as cash.
 
-- **Thresholds:** configurable per covenant (`breachIfBelow` / `breachIfAbove`).
-- **Updates:** `CovenantUpdated` events when metrics change.
-- **Breaches:** `CovenantBreached` events when values cross thresholds.
+**Out-of-scope**
+- Jurisdiction-specific prospectus/disclosure obligations
+- Tax advice
 
-## Queries
-
-- `getComplianceStatus()` → `{ fullyCompliant: bool, breachedIds: bytes32[] }`
-- `getCovenant(bytes32 id)` → latest metadata + values.
-
-## Operational hooks
-
-- Ingest covenant metrics from treasury/ERP systems.
-- Emit alerts when `fullyCompliant` flips to `false`.
-- Document escalation steps in runbooks.
-
-## Roadmap
-
-- Back covenant data with signed attestations.
-- Integrate with upgradeable governance before production.
-- Align covenant vocabulary with legal documentation.
+Consult your counsel before production deployment.
