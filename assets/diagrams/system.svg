@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">KBB_MVP system context</title>
+  <desc id="desc">Investor funds escrow bank, adapter attests to orchestrator, which mints FixedIncomeNote and emits events for reconciliation.</desc>
+  <style>
+    .box { fill:#ffffff; stroke:#1f2933; stroke-width:2; rx:12; ry:12; }
+    .note { fill:#f26922; stroke:#1f2933; stroke-width:2; rx:12; ry:12; }
+    .adapter { fill:#e0f2fe; stroke:#1f2933; stroke-width:2; rx:12; ry:12; }
+    .label { font: 16px "Inter", "Segoe UI", sans-serif; fill:#111827; }
+    .title { font:700 22px "Inter", "Segoe UI", sans-serif; fill:#111827; }
+    .arrow { stroke:#1f2933; stroke-width:2.5; marker-end:url(#arrowhead); fill:none; }
+    .caption { font:italic 14px "Inter", "Segoe UI", sans-serif; fill:#4b5563; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f2933" />
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="760" height="360" fill="#f8fafc" rx="24" ry="24" stroke="#e2e8f0" stroke-width="2" />
+  <text x="30" y="50" class="title">Rail-agnostic settlement with token register</text>
+
+  <rect x="60" y="120" width="150" height="70" class="box" />
+  <text x="135" y="160" class="label" text-anchor="middle">Investor</text>
+
+  <rect x="250" y="120" width="170" height="70" class="box" />
+  <text x="335" y="148" class="label" text-anchor="middle">Escrow Bank</text>
+  <text x="335" y="168" class="caption" text-anchor="middle">regulated rails</text>
+
+  <rect x="460" y="110" width="210" height="90" class="adapter" />
+  <text x="565" y="145" class="label" text-anchor="middle">Settlement Adapter</text>
+  <text x="565" y="165" class="caption" text-anchor="middle">camt.054 / ISO 20022 / rail data</text>
+
+  <rect x="460" y="230" width="210" height="80" class="adapter" />
+  <text x="565" y="270" class="label" text-anchor="middle">Reconciliation Log</text>
+  <text x="565" y="290" class="caption" text-anchor="middle">operations / audit trail</text>
+
+  <rect x="250" y="230" width="170" height="80" class="note" />
+  <text x="335" y="260" class="label" text-anchor="middle" fill="#ffffff">FixedIncomeNote</text>
+  <text x="335" y="282" class="caption" text-anchor="middle" fill="#ffffff">permissioned register (ERC-3643)</text>
+
+  <rect x="60" y="230" width="150" height="80" class="box" />
+  <text x="135" y="270" class="label" text-anchor="middle">DvP Orchestrator</text>
+  <text x="135" y="292" class="caption" text-anchor="middle">enforces funding proofs</text>
+
+  <line x1="210" y1="155" x2="250" y2="155" class="arrow" />
+  <text x="230" y="145" class="caption" text-anchor="middle">subscribe</text>
+
+  <line x1="420" y1="155" x2="460" y2="155" class="arrow" />
+  <text x="440" y="145" class="caption" text-anchor="middle">bank statements</text>
+
+  <line x1="460" y1="200" x2="420" y2="230" class="arrow" />
+  <text x="440" y="215" class="caption" text-anchor="middle">attest evidence</text>
+
+  <line x1="210" y1="270" x2="250" y2="270" class="arrow" />
+  <text x="230" y="258" class="caption" text-anchor="middle">mint/transfer</text>
+
+  <line x1="420" y1="270" x2="460" y2="270" class="arrow" />
+  <text x="440" y="258" class="caption" text-anchor="middle">events (settlementRef)</text>
+
+  <line x1="135" y1="190" x2="135" y2="230" class="arrow" />
+  <text x="115" y="215" class="caption" text-anchor="middle">funded order</text>
+
+  <line x1="335" y1="190" x2="335" y2="230" class="arrow" />
+  <text x="355" y="210" class="caption" text-anchor="middle">DvP only</text>
+
+  <line x1="565" y1="200" x2="565" y2="230" class="arrow" />
+  <text x="585" y="215" class="caption" text-anchor="middle">events mirrored</text>
+</svg>
