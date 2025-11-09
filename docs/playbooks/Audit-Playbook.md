@@ -7,7 +7,7 @@ forge build && forge test -vv
 
 ## 2. Generate events (demo)
 ```bash
-npm ci && npm run demo
+ npm ci && npm run demo:all
 cat out/events.sample.json
 ```
 

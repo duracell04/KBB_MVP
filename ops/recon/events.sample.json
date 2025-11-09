@@ -7,5 +7,14 @@
     "currency": "USD",
     "settlementRef": "2025-10-15/MsgId:ABC123",
     "settlementNetwork": "ISO20022"
+  },
+  {
+    "event": "SubscriptionSettled",
+    "orderId": "0xORDER2",
+    "investor": "0x000000000000000000000000000000000000FEED",
+    "amount": 50000,
+    "currency": "USD",
+    "settlementRef": "STABLE-REF-001",
+    "settlementNetwork": "ONCHAIN_STABLECOIN"
   }
 ]

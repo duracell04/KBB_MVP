@@ -1,0 +1,60 @@
+{
+  "contractName": "IFixedIncomeNote",
+  "abi": [
+    {
+      "type": "event",
+      "name": "SubscriptionSettled",
+      "inputs": [
+        { "type": "bytes32", "name": "orderId", "internalType": "bytes32", "indexed": true },
+        { "type": "address", "name": "investor", "internalType": "address", "indexed": true },
+        { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false },
+        { "type": "string", "name": "currency", "internalType": "string", "indexed": false },
+        { "type": "string", "name": "settlementRef", "internalType": "string", "indexed": false },
+        { "type": "string", "name": "settlementNetwork", "internalType": "string", "indexed": false }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "CouponPaid",
+      "inputs": [
+        { "type": "uint256", "name": "periodId", "internalType": "uint256", "indexed": true },
+        { "type": "uint256", "name": "grossAmount", "internalType": "uint256", "indexed": false },
+        { "type": "uint256", "name": "withholding", "internalType": "uint256", "indexed": false },
+        { "type": "uint256", "name": "netAmount", "internalType": "uint256", "indexed": false },
+        { "type": "string", "name": "settlementRef", "internalType": "string", "indexed": false },
+        { "type": "string", "name": "settlementNetwork", "internalType": "string", "indexed": false }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "RedemptionPaid",
+      "inputs": [
+        { "type": "uint256", "name": "amount", "internalType": "uint256", "indexed": false },
+        { "type": "string", "name": "settlementRef", "internalType": "string", "indexed": false },
+        { "type": "string", "name": "settlementNetwork", "internalType": "string", "indexed": false }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "function",
+      "name": "noteStatus",
+      "stateMutability": "view",
+      "inputs": [
+        { "type": "bytes32", "name": "orderId", "internalType": "bytes32" }
+      ],
+      "outputs": [
+        { "type": "tuple", "name": "", "components": [
+          { "type": "bool", "name": "funded", "internalType": "bool" },
+          { "type": "bool", "name": "settled", "internalType": "bool" },
+          { "type": "uint256", "name": "amount", "internalType": "uint256" }
+        ], "internalType": "struct IFixedIncomeNote.NoteStatus" }
+      ]
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

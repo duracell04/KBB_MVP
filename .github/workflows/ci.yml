@@ -30,11 +30,8 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Run demo & validate events
+      - name: Run demo, indexer & validations
         run: npm run ci:demo
-
-      - name: Validate recon breaks
-        run: npm run validate:recon
 
       - name: Recon summary
         run: |
@@ -51,6 +48,7 @@ jobs:
         with:
           name: validation
           path: |
+            out/events.latest.json
             out/events.validation.json
             out/recon.report.json
             out/recon.validation.json
