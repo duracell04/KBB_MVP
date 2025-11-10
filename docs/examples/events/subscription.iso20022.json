@@ -1,0 +1,10 @@
+{
+  "event": "SubscriptionSettled",
+  "orderId": "0x2b1cf89283e5a3db9df818c75ce6a1b2d0448ad4c80895720be8a032d7ac4bd4",
+  "investor": "0x000000000000000000000000000000000000FEE1",
+  "amount": "100000000",
+  "currency": "EUR",
+  "settlementRef": "1f9c20d4-4c1e-11ef-9a9a-0242ac120002",
+  "settlementNetwork": "ISO20022",
+  "valueDate": "2025-01-02"
+}

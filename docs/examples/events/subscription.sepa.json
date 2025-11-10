@@ -1,0 +1,10 @@
+{
+  "event": "SubscriptionSettled",
+  "orderId": "0x8e7b232cfb1bd249b5f4cf4fb4523da19d7d3125f73f2fe6e82b6f79fd1739b0",
+  "investor": "0x000000000000000000000000000000000000C0DE",
+  "amount": "50000000",
+  "currency": "EUR",
+  "settlementRef": "E2E-2025-11-10-000123",
+  "settlementNetwork": "SEPA",
+  "valueDate": "2025-11-10"
+}

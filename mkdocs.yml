@@ -30,7 +30,7 @@ nav:
       - Runbooks:
         - Primary Issuance: runbooks/primary-issuance.md
         - Coupon Run: runbooks/coupon-run.md
-        - Incident: Missing Evidence: runbooks/incident-missing-evidence.md
+        - 'Incident: Missing Evidence': runbooks/incident-missing-evidence.md
   - Decisions:
       - ADRs:
         - ADR 0001 — Event schema: adr/0001-event-schema.md

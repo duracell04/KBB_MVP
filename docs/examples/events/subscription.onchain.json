@@ -1,0 +1,10 @@
+{
+  "event": "SubscriptionSettled",
+  "orderId": "0x9a9f64891db9920f281002f17d4eb3899166c622b1ab92044d83282bf1c0c6b9",
+  "investor": "0x000000000000000000000000000000000000BEEF",
+  "amount": "75000000",
+  "currency": "USD",
+  "settlementRef": "0x38f9a0e6f6361bd6a85e30dc3b96bd9a79d5a21a6ce0a0a8cd3e1a810f3279b7",
+  "settlementNetwork": "ONCHAIN_STABLECOIN",
+  "valueDate": "2025-06-30"
+}

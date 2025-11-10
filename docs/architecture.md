@@ -3,6 +3,12 @@
 ## Design principle
 Cash settles on regulated rails. The token is the **register & event emitter**.
 
+## System context
+
+![System context diagram showing issuer ops, rails, adapters, and on-chain registry.](assets/diagrams/system.svg)
+
+Mermaid source: `assets/diagrams/system.mmd`
+
 ## Components
 - **Escrow (off-chain rail)** — receives funds and exposes settlement evidence.
 - **Settlement Adapter** — verifies evidence and formats it.
@@ -12,21 +18,9 @@ Cash settles on regulated rails. The token is the **register & event emitter**.
 
 ## Primary market (DvP) sequence
 
-```mermaid
-sequenceDiagram
-  participant Inv as Investor
-  participant Bank as Escrow (Rail)
-  participant Ad as Settlement Adapter
-  participant DvP as DvP Orchestrator
-  participant Note as FixedIncomeNote
-  participant Log as On-chain Events
+![Primary market DvP sequence diagram showing interactions between investor, rail, adapter, orchestrator, and note.](assets/diagrams/dvp-sequence.svg)
 
-  Inv->>Bank: Wire funds with rail-native reference
-  Bank->>Ad: Settlement advice / evidence
-  Ad->>DvP: attest(amount, ccy, valueDate, settlementRef, network)
-  DvP->>Note: settleSubscription(...)
-  Note-->>Log: SubscriptionSettled(...)
-```
+Mermaid source: `assets/diagrams/dvp-sequence.mmd`
 
 ## Servicing (Coupons & Redemption)
 
