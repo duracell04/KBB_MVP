@@ -6,10 +6,10 @@
 - `EligibilityRegistry` (preview) — gating & lockups
 
 ## API docs
-The full Solidity API is generated from NatSpec comments via **Foundry**:
+Generate the full Solidity API from NatSpec comments using **Foundry**:
 
 ```bash
-forge doc --build
+forge doc --build --out docs/contracts/api
 ```
 
-The static site is published to GitHub Pages on push to `main`. See the CI job `docs.yml`.
+This produces an mdBook in `docs/contracts/api/` (ignored in git) so you can browse `book/index.html` locally or publish it from CI.

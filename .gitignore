@@ -5,3 +5,10 @@ lib/
 node_modules/
 .env
 .DS_Store
+
+# Generated documentation
+docs/contracts/api/
+
+# Diagram exports (generated for presentations only)
+assets/diagrams/*.png
+docs/assets/diagrams/*.png

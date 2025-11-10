@@ -4,36 +4,35 @@
 - Foundry installed (`foundryup`)
 - Node.js ≥ 20 (for ops/adapters demos)
 
-## 1) Build & test
+## 1) Build & test contracts
 
 ```bash
 forge build && forge test -vv
 ```
 
-Artifacts land in `out/` (contracts) and `cache/`.
+Outputs land in `out/` (ABI + bytecode) and `cache/`.
 
-## 2) Run the end-to-end demo
+## 2) Install Node deps & run the demo
 
 ```bash
 npm ci
 npm run demo:all
 ```
 
-What the demo does:
+The scripted flow wires funds, emits lifecycle events, indexes them, and validates reconciliation samples.
 
-* Spins a local chain, deploys `FixedIncomeNote`
-* Simulates **DvP** on a chosen rail
-* Emits `SubscriptionSettled` with `(settlementRef, settlementNetwork)`
-* Writes example outputs under `out/demo/`:
+## 3) Inspect generated artifacts
 
-  * `onchain.events.json` — captured lifecycle events
-  * `bank.sample.csv` — mocked bank statement rows
-  * `recon.report.md` — reconciliation result
+| Path | Description |
+| --- | --- |
+| `out/demo/onchain.events.json` | Lifecycle events including rail identifiers |
+| `out/demo/bank.sample.csv` | Mocked bank statement rows |
+| `out/demo/recon.report.md` | Reconciliation summary |
 
-## 3) Troubleshooting
+## 4) Troubleshooting
 
-* `forge: command not found` → install Foundry then `foundryup`
-* Solc mismatch → `foundryup` and retry
-* Node errors → `nvm use 20` or install Node 20+
+- `forge: command not found` → install Foundry then `foundryup`
+- Solc mismatch → `foundryup` and retry
+- Node errors → `nvm use 20` or install Node 20+
 
 **Next:** understand the flow → [architecture.md](./architecture.md)

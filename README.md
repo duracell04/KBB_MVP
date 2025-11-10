@@ -26,12 +26,25 @@
 | Solidity / protocol dev | [Architecture](docs/architecture.md), [Contracts](docs/contracts.md) |
 
 ## Quickstart (5 min)
-```bash
-forge build && forge test -vv
-npm ci
-npm run demo:all
-```
-Artifacts land in `out/` (contracts), `cache/`, and `out/demo/` (sample events + recon report). Troubleshooting lives in [docs/quickstart.md](docs/quickstart.md).
+1. **Build & test contracts**
+   ```bash
+   forge build && forge test -vv
+   ```
+   Outputs land in `out/` (ABI + bytecode) and `cache/`.
+
+2. **Install Node deps & run the demo**
+   ```bash
+   npm ci
+   npm run demo:all
+   ```
+   The scripted flow wires funds, emits lifecycle events, indexes them, and validates recon samples.
+
+3. **Inspect generated artifacts**
+   - `out/demo/onchain.events.json` — lifecycle log with rail references
+   - `out/demo/bank.sample.csv` — mocked rail statement
+   - `out/demo/recon.report.md` — reconciliation snapshot
+
+Full troubleshooting notes live in [docs/quickstart.md](docs/quickstart.md).
 
 ## Documentation map
 - Overview landing page — [docs/index.md](docs/index.md)

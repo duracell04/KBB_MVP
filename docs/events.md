@@ -1,72 +1,66 @@
 # Lifecycle Events & Schema
 
-All lifecycle events carry:
-- `settlementRef` — the **rail-native identifier** (UETR, EndToEndId, TxHash, etc.)
-- `settlementNetwork` — one of: `ISO20022 | SWIFT | SEPA | ACH | FPS | ONCHAIN_STABLECOIN`
+Every lifecycle event exposes the **rail-native settlement reference** alongside the network identifier so reconciliation remains deterministic across ledgers.
 
-## SubscriptionSettled
+| Field | Description |
+| --- | --- |
+| `settlementRef` | Native payment identifier (UETR, EndToEndId, on-chain tx hash, etc.). |
+| `settlementNetwork` | Enumerated rail identifier. Valid values: `ISO20022`, `SWIFT`, `SEPA`, `ACH`, `FPS`, `ONCHAIN_STABLECOIN`. |
 
-| Field              | Type     | Semantics                                           | Example                           |
-|------------------:|:---------|:----------------------------------------------------|:----------------------------------|
-| `orderId`         | bytes32  | Correlates primary order                            | `0x2b1c…d4`                       |
-| `investor`        | address  | Whitelisted investor                                | `0x0000…FEE1`                     |
-| `amount`          | uint256  | Face value units (token decimals)                   | `100000000`                       |
-| `currency`        | string   | ISO 4217 currency code                              | `EUR`                             |
-| `settlementRef`   | string   | Rail evidence reference                             | `1f9c20d4-...`                    |
-| `settlementNetwork`| string  | Rail identifier                                     | `ISO20022`                        |
+## `SubscriptionSettled`
 
-**ISO 20022 / UETR example**
-```json
-{
-  "event": "SubscriptionSettled",
-  "orderId": "0x2b1c...d4",
-  "investor": "0x000000000000000000000000000000000000FEE1",
-  "amount": "100000000",
-  "currency": "EUR",
-  "settlementRef": "1f9c20d4-4c1e-11ef-9a9a-0242ac120002",
-  "settlementNetwork": "ISO20022"
-}
-```
+Triggered after DvP completes for an investor subscription.
 
-**SEPA / EndToEndId example**
+| Field | Type | Required | Notes | Example |
+| --- | --- | --- | --- | --- |
+| `event` | string | ✓ | Always `"SubscriptionSettled"`. | `"SubscriptionSettled"` |
+| `orderId` | bytes32 | ✓ | Off-chain order correlation identifier. | `0x2b1c…4bd4` |
+| `investor` | address | ✓ | Whitelisted investor wallet. | `0x0000…FEE1` |
+| `amount` | uint256 | ✓ | Face value in instrument decimals. | `100000000` |
+| `currency` | string | ✓ | ISO 4217 currency code. | `"EUR"` |
+| `valueDate` | string | optional | ISO 8601 settlement date echoed from the rail. | `"2025-01-02"` |
+| `settlementRef` | string | ✓ | Rail-native evidence reference. | `"1f9c…0002"` |
+| `settlementNetwork` | string | ✓ | Rail identifier enum. | `"ISO20022"` |
 
-```json
-{
-  "event": "SubscriptionSettled",
-  "currency": "EUR",
-  "settlementRef": "E2E-2025-11-10-000123",
-  "settlementNetwork": "SEPA"
-}
-```
+### Rail-specific fixtures
 
-**On-chain stablecoin example**
+Downloadable fixtures live under `examples/events/`:
 
-```json
-{
-  "event": "SubscriptionSettled",
-  "currency": "USD",
-  "settlementRef": "0x08c379a0...txHash",
-  "settlementNetwork": "ONCHAIN_STABLECOIN"
-}
-```
+| Rail | Fixture |
+| --- | --- |
+| ISO 20022 / UETR | [`subscription.iso20022.json`](examples/events/subscription.iso20022.json) |
+| SEPA / EndToEndId | [`subscription.sepa.json`](examples/events/subscription.sepa.json) |
+| On-chain stablecoin | [`subscription.onchain.json`](examples/events/subscription.onchain.json) |
 
-## CouponPaid
+Each fixture includes realistic addresses, order IDs, and settlement identifiers for direct ingestion in tests or demos.
 
-| Field              | Type    | Meaning             |
-|------------------:|:--------|:--------------------|
-| `periodId`         | uint256 | Coupon period index |
-| `grossAmount`      | uint256 | Before withholding  |
-| `withholding`      | uint256 | Withheld amount     |
-| `netAmount`        | uint256 | Paid amount         |
-| `settlementRef`    | string  | Rail reference      |
-| `settlementNetwork`| string  | Rail id             |
+## `CouponPaid`
 
-## RedemptionPaid
+Represents periodic coupon servicing.
 
-| Field              | Type    | Meaning          |
-|------------------:|:--------|:-----------------|
-| `amount`           | uint256 | Principal amount |
-| `settlementRef`    | string  | Rail reference   |
-| `settlementNetwork`| string  | Rail id          |
+| Field | Type | Required | Notes | Example |
+| --- | --- | --- | --- | --- |
+| `event` | string | ✓ | Always `"CouponPaid"`. | `"CouponPaid"` |
+| `periodId` | uint256 | ✓ | Coupon period index (0-based). | `3` |
+| `grossAmount` | uint256 | ✓ | Amount before withholding. | `1250000` |
+| `withholding` | uint256 | ✓ | Tax withheld (same decimals as token). | `250000` |
+| `netAmount` | uint256 | ✓ | Cash delivered on the rail. | `1000000` |
+| `currency` | string | ✓ | ISO 4217 code. | `"USD"` |
+| `settlementRef` | string | ✓ | Rail evidence reference. | `"E2E-2025-09-30-000045"` |
+| `settlementNetwork` | string | ✓ | Rail identifier enum. | `"SEPA"` |
+| `valueDate` | string | optional | ISO 8601 settlement date. | `"2025-09-30"` |
+
+## `RedemptionPaid`
+
+Represents principal repayment at maturity or early redemption.
+
+| Field | Type | Required | Notes | Example |
+| --- | --- | --- | --- | --- |
+| `event` | string | ✓ | Always `"RedemptionPaid"`. | `"RedemptionPaid"` |
+| `amount` | uint256 | ✓ | Principal amount repaid. | `100000000` |
+| `currency` | string | ✓ | ISO 4217 code. | `"EUR"` |
+| `settlementRef` | string | ✓ | Rail evidence reference. | `"UETR-RED-0009"` |
+| `settlementNetwork` | string | ✓ | Rail identifier enum. | `"ISO20022"` |
+| `valueDate` | string | optional | ISO 8601 settlement date. | `"2027-01-01"` |
 
 > **Compatibility rule:** Never repurpose fields. Add new data via **new events** to avoid breaking consumers.
