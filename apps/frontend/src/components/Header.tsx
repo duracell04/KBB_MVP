@@ -19,11 +19,14 @@ const Header = () => {
             <Link to={{ pathname: "/", hash: "#sakartvelo" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Sakartvelo
             </Link>
-            <Link to="/issuer-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
-              Issuer Demo
+            <Link to={{ pathname: "/", hash: "#mechanism" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+              Mechanism
             </Link>
-            <Link to="/investor-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
-              Investor Demo
+            <Link to={{ pathname: "/", hash: "#roadmap" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+              Roadmap
+            </Link>
+            <Link to={{ pathname: "/", hash: "#build" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+              Build
             </Link>
           </nav>
 
