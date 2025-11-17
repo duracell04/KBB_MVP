@@ -22,16 +22,13 @@ const Header = () => {
             <Link to="/issuer-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Issuer Demo
             </Link>
-            <Link to="/resources" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
-              Research
-            </Link>
           </nav>
 
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild className="text-[#0D232D] hover:text-[#0A1B24] hover:bg-neutral-100">
               <Link to="/resources">
                 <BookOpen className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Research</span>
+                <span className="hidden sm:inline">Sources</span>
               </Link>
             </Button>
             <Button variant="ghost" size="sm" asChild className="text-[#0D232D] hover:text-[#0A1B24] hover:bg-neutral-100">
