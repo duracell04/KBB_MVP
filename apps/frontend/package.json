@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start",
     "preview": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rimraf .next",
+    "redev": "pnpm run clean && pnpm run dev"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",

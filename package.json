@@ -12,6 +12,10 @@
     "validate:recon": "node --loader ts-node/esm ops/validate-recon.ts",
     "ci:demo": "pnpm run demo && pnpm run validate:events && pnpm run validate:recon",
     "frontend:dev": "pnpm --filter kbb-mvp-frontend dev",
+    "frontend:dev:3000": "powershell -NoProfile -File ./scripts/dev-frontend-auto.ps1 -Port 3000",
+    "frontend:dev:port": "pnpm --filter kbb-mvp-frontend dev",
+    "frontend:dev:auto": "powershell -NoProfile -File ./scripts/dev-frontend-auto.ps1",
+    "frontend:clean": "pnpm --filter kbb-mvp-frontend run clean",
     "frontend:build": "pnpm --filter kbb-mvp-frontend build",
     "frontend:preview": "pnpm --filter kbb-mvp-frontend preview"
   },
@@ -20,8 +24,13 @@
     "@types/node": "^22.7.4",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
+    "cross-env": "^7.0.3",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
-  "packageManager": "pnpm@9.12.0"
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20 <21"
+  }
 }
