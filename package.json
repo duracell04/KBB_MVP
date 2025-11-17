@@ -2,18 +2,18 @@
   "name": "kbb-protocol-mvp",
   "private": true,
   "type": "module",
-  "description": "Skeleton only — off-chain DvP/recon placeholders, no logic yet.",
+  "description": "Skeleton only - off-chain DvP/recon placeholders, no logic yet.",
   "scripts": {
     "ops:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
     "demo:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
     "demo:recon": "bash -c 'mkdir -p out && python3 ops/recon/recon.py ops/recon/rails.sample.csv out/events.sample.json > out/recon.report.json && cat out/recon.report.json'",
-    "demo": "npm run demo:simulate-dvp && npm run demo:recon",
+    "demo": "pnpm run demo:simulate-dvp && pnpm run demo:recon",
     "validate:events": "node --loader ts-node/esm ops/validate-events.ts",
     "validate:recon": "node --loader ts-node/esm ops/validate-recon.ts",
-    "ci:demo": "npm run demo && npm run validate:events && npm run validate:recon",
-    "frontend:dev": "npm --prefix apps/frontend run dev",
-    "frontend:build": "npm --prefix apps/frontend run build",
-    "frontend:preview": "npm --prefix apps/frontend run preview"
+    "ci:demo": "pnpm run demo && pnpm run validate:events && pnpm run validate:recon",
+    "frontend:dev": "pnpm --filter kbb-mvp-frontend dev",
+    "frontend:build": "pnpm --filter kbb-mvp-frontend build",
+    "frontend:preview": "pnpm --filter kbb-mvp-frontend preview"
   },
   "dependencies": {},
   "devDependencies": {
@@ -23,7 +23,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
-  "workspaces": [
-    "apps/frontend"
-  ]
+  "packageManager": "pnpm@9.12.0"
 }

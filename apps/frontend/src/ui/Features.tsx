@@ -27,7 +27,7 @@ const features = [
   {
     title: "Batteries-included demo",
     description:
-      "The `npm run demo` script mints, funds, reconciles, and outputs the final recon report in under a minute.",
+      "The `pnpm run demo` script mints, funds, reconciles, and outputs the final recon report in under a minute.",
   },
 ];
 
@@ -38,7 +38,7 @@ export function Features() {
         <div className="max-w-3xl">
           <h2 className="text-3xl font-semibold text-white sm:text-4xl">Why teams choose KBB</h2>
           <p className="mt-4 text-base text-cloud/70">
-            Focused on institutional debt workflows from day one — deterministic DvP, reconciled state, and zero-ambiguity reporting.
+            Focused on institutional debt workflows from day one - deterministic DvP, reconciled state, and zero-ambiguity reporting.
           </p>
         </div>
         <dl className="mt-12 grid gap-6 sm:grid-cols-2">

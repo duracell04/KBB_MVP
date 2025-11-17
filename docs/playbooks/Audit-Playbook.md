@@ -7,13 +7,13 @@ forge build && forge test -vv
 
 ## 2. Generate events (demo)
 ```bash
-npm ci && npm run demo
+pnpm install && pnpm run demo
 cat out/events.sample.json
 ```
 
 ## 3. Validate schema
 ```bash
-npm run validate:events
+pnpm run validate:events
 ```
 
 ## 4. Reconcile

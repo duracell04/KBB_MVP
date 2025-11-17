@@ -209,7 +209,7 @@ forge install OpenZeppelin/openzeppelin-contracts OpenZeppelin/openzeppelin-cont
 
 Install ops deps:
 ```bash
-npm install
+pnpm install
 ```
 
 Run tests:
@@ -325,8 +325,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install npm deps
-        run: npm install
+      - name: Install pnpm deps
+        run: pnpm install
 
       - name: Install Solidity deps (forge)
         run: |

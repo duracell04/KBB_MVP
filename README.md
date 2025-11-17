@@ -94,13 +94,13 @@ forge test -vv
 *(Optional ops stubs)*
 
 ```bash
-npm install
-npm run ops:simulate-dvp
+pnpm install
+pnpm run ops:simulate-dvp
 ```
 
 ### Validate event structure
 ```bash
-npm run validate:events
+pnpm run validate:events
 # → writes out/events.validation.json
 ```
 

@@ -19,9 +19,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,23 +27,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
           cache-dependency-path: |
-            package-lock.json
+            pnpm-lock.yaml
 
-      - name: Install dependencies (workspaces)
-        run: npm ci --ignore-scripts --workspaces --include-workspace-root
-        working-directory: .
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.12.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build frontend
         env:
-          BASE_PATH: /KBB_MVP/
-        run: npm run build
+          BASE_PATH: /KBB_MVP
+        run: pnpm --filter kbb-mvp-frontend build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/frontend/dist
+          path: apps/frontend/out
 
   deploy:
     needs: build
@@ -58,5 +60,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-

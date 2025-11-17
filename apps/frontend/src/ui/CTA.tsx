@@ -1,8 +1,8 @@
 const commands = [
   "forge build",
   "forge test -vv",
-  "npm ci",
-  "npm run demo"
+  "pnpm install",
+  "pnpm run demo"
 ];
 
 export function CTA() {
@@ -26,7 +26,7 @@ export function CTA() {
             ))}
           </div>
           <p className="mt-6 text-xs text-cloud/50">
-            Tip: `npm run demo` chains the whole flow and writes <code>out/recon.report.json</code>. Share that artifact with auditors or investors.
+            Tip: `pnpm run demo` chains the whole flow and writes <code>out/recon.report.json</code>. Share that artifact with auditors or investors.
           </p>
         </div>
       </div>
