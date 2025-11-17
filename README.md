@@ -74,6 +74,7 @@ test/       -> one passing Foundry test (keeps CI green early)
 ops/        -> DvP & reconciliation stubs (no heavy deps; TS/Py-ready)
 docs/       -> 1-page architecture overview (rail-agnostic)
 assets/     -> diagrams (Mermaid)
+apps/frontend -> Vite + Tailwind mockup (desktop/mobile, pnpm workspace package)
 ```
 
 ---
@@ -96,6 +97,16 @@ forge test -vv
 ```bash
 pnpm install
 pnpm run ops:simulate-dvp
+```
+
+### Frontend mockup (desktop/mobile)
+
+```bash
+pnpm install
+pnpm run frontend:dev         # launches Vite dev server (defaults to 5173)
+# or, to build/preview:
+pnpm run frontend:build
+pnpm run frontend:preview
 ```
 
 ### Validate event structure
