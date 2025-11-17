@@ -34,6 +34,11 @@ const Hero = () => {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
+            <Button size="lg" variant="secondary" asChild className="text-[#0D232D] bg-white hover:bg-white/90">
+              <Link to="/investor-workflow">
+                Investor Demo
+              </Link>
+            </Button>
             <Button size="lg" variant="outline" asChild className="border-white text-white bg-transparent hover:bg-white/10">
               <Link to="/documentation">
                 View Documentation

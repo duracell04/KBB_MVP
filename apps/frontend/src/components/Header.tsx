@@ -22,6 +22,9 @@ const Header = () => {
             <Link to="/issuer-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Issuer Demo
             </Link>
+            <Link to="/investor-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+              Investor Demo
+            </Link>
           </nav>
 
           <div className="flex items-center gap-3">

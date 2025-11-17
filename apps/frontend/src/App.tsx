@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import IssuerWorkflow from "./pages/IssuerWorkflow";
+import InvestorWorkflow from "./pages/InvestorWorkflow";
 import Documentation from "./pages/Documentation";
 import Resources from "./pages/Resources";
 import NotFound from "./pages/NotFound";
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/issuer-workflow" element={<IssuerWorkflow />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/investor-workflow" element={<InvestorWorkflow />} />
           <Route path="/resources" element={<Resources />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

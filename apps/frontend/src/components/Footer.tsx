@@ -62,6 +62,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li><Link to="/issuer-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Issuer Demo</Link></li>
+              <li><Link to="/investor-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Investor Demo</Link></li>
             </ul>
           </div>
 
