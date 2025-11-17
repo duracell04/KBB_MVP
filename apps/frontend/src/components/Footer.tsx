@@ -17,10 +17,26 @@ const Footer = () => {
           <div>
             <h4 className="font-medium mb-4 text-white text-sm">Product</h4>
             <ul className="space-y-2.5 text-sm">
-              <li><a href="/#features" className="text-white/70 hover:text-[#F59E0B] transition-colors">Vision</a></li>
-              <li><a href="/#how-it-works" className="text-white/70 hover:text-[#F59E0B] transition-colors">Why Georgia</a></li>
-              <li><a href="/#mechanism" className="text-white/70 hover:text-[#F59E0B] transition-colors">Mechanism</a></li>
-              <li><a href="/#roadmap" className="text-white/70 hover:text-[#F59E0B] transition-colors">Roadmap</a></li>
+              <li>
+                <Link to={{ pathname: "/", hash: "#vision" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                  Vision
+                </Link>
+              </li>
+              <li>
+                <Link to={{ pathname: "/", hash: "#sakartvelo" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                  Sakartvelo
+                </Link>
+              </li>
+              <li>
+                <Link to={{ pathname: "/", hash: "#mechanism" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                  Mechanism
+                </Link>
+              </li>
+              <li>
+                <Link to={{ pathname: "/", hash: "#roadmap" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                  Roadmap
+                </Link>
+              </li>
             </ul>
           </div>
 

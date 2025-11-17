@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Disconnect from "@/components/Disconnect";
@@ -11,6 +13,21 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      return;
+    }
+
+    const targetId = location.hash.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.hash]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -18,15 +35,19 @@ const Index = () => {
         <Hero />
         <Disconnect />
         <InkSection />
-        <div id="features">
+        <div id="vision">
           <Features />
         </div>
-        <div id="how-it-works">
+        <div id="sakartvelo">
           <HowItWorks />
         </div>
-        <Mechanism />
+        <div id="mechanism">
+          <Mechanism />
+        </div>
         <MarketValidation />
-        <SuccessRoadmap />
+        <div id="roadmap">
+          <SuccessRoadmap />
+        </div>
         <CTA />
       </main>
       <Footer />

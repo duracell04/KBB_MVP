@@ -13,12 +13,12 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <a href="/#features" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link to={{ pathname: "/", hash: "#vision" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Vision
-            </a>
-            <a href="/#how-it-works" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
-              Why Georgia
-            </a>
+            </Link>
+            <Link to={{ pathname: "/", hash: "#sakartvelo" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+              Sakartvelo
+            </Link>
             <Link to="/issuer-workflow" className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Issuer Demo
             </Link>
