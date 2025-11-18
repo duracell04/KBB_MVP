@@ -6,8 +6,9 @@
   "scripts": {
     "ops:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
     "demo:simulate-dvp": "node --loader ts-node/esm ops/examples/simulate-dvp.ts",
-    "demo:recon": "bash -c 'mkdir -p out && python3 ops/recon/recon.py ops/recon/rails.sample.csv out/events.sample.json > out/recon.report.json && cat out/recon.report.json'",
+    "demo:recon": "node ops/recon/run-demo-recon.mjs",
     "demo": "pnpm run demo:simulate-dvp && pnpm run demo:recon",
+    "dev": "pnpm --filter kbb-mvp-frontend dev",
     "validate:events": "node --loader ts-node/esm ops/validate-events.ts",
     "validate:recon": "node --loader ts-node/esm ops/validate-recon.ts",
     "ci:demo": "pnpm run demo && pnpm run validate:events && pnpm run validate:recon",
