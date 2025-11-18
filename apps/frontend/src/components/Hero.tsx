@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, FileCheck, Coins, Info } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -29,13 +29,13 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
             <Button size="lg" variant="default" asChild className="bg-[#F59E0B] text-white hover:bg-[#D97706]">
-              <Link to="/issuer-workflow">
+              <Link href="/issuer-workflow">
                 Issuer Demo
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </Button>
             <Button size="lg" variant="secondary" asChild className="text-[#0D232D] bg-white hover:bg-white/90">
-              <Link to="/investor-workflow">
+              <Link href="/investor-workflow">
                 Investor Demo
               </Link>
             </Button>
@@ -48,7 +48,7 @@ const Hero = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to="/resources#global-msme" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
+                      <Link href="/resources#global-msme" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
                         <Info className="w-4 h-4" />
                       </Link>
                     </TooltipTrigger>
@@ -68,7 +68,7 @@ const Hero = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to="/resources#georgia-sme-finance" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
+                      <Link href="/resources#georgia-sme-finance" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
                         <Info className="w-4 h-4" />
                       </Link>
                     </TooltipTrigger>
@@ -88,7 +88,7 @@ const Hero = () => {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link to="/resources#georgia-economy" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
+                      <Link href="/resources#georgia-economy" className="text-[#F59E0B] hover:text-[#D97706] transition-colors">
                         <Info className="w-4 h-4" />
                       </Link>
                     </TooltipTrigger>

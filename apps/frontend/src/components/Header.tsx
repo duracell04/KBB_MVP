@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Github, FileText, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 
 const Header = () => {
@@ -8,31 +8,31 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="group">
+            <Link href="/" className="group">
             <Logo showWordmark size="md" variant="accent" className="transition-opacity group-hover:opacity-80" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link to={{ pathname: "/", hash: "#vision" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link href={{ pathname: "/", hash: "vision" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Vision
             </Link>
-            <Link to={{ pathname: "/", hash: "#sakartvelo" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link href={{ pathname: "/", hash: "sakartvelo" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Sakartvelo
             </Link>
-            <Link to={{ pathname: "/", hash: "#mechanism" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link href={{ pathname: "/", hash: "mechanism" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Mechanism
             </Link>
-            <Link to={{ pathname: "/", hash: "#roadmap" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link href={{ pathname: "/", hash: "roadmap" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Roadmap
             </Link>
-            <Link to={{ pathname: "/", hash: "#build" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
+            <Link href={{ pathname: "/", hash: "build" }} className="text-sm font-medium text-[#0D232D] hover:text-[#0A1B24] transition-colors">
               Build
             </Link>
           </nav>
 
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild className="text-[#0D232D] hover:text-[#0A1B24] hover:bg-neutral-100">
-              <Link to="/resources">
+              <Link href="/resources">
                 <BookOpen className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Sources</span>
               </Link>
@@ -44,7 +44,7 @@ const Header = () => {
               </a>
             </Button>
             <Button size="sm" variant="default" asChild className="bg-[#0D232D] text-white hover:bg-[#0A1B24]">
-              <Link to="/documentation">
+              <Link href="/documentation">
                 <FileText className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Docs</span>
               </Link>

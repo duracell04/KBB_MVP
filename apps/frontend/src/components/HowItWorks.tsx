@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, TrendingUp, Target, Info } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -50,7 +50,7 @@ const HowItWorks = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Link to="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors">
+                          <Link href="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors">
                             <Info className="w-4 h-4" />
                           </Link>
                         </TooltipTrigger>
@@ -78,7 +78,7 @@ const HowItWorks = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Link to="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors">
+                          <Link href="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors">
                             <Info className="w-4 h-4" />
                           </Link>
                         </TooltipTrigger>
@@ -102,7 +102,7 @@ const HowItWorks = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to="/resources#georgia-sme-finance" className="text-accent hover:text-accent/80 transition-colors">
+                    <Link href="/resources#georgia-sme-finance" className="text-accent hover:text-accent/80 transition-colors">
                       <Info className="w-4 h-4" />
                     </Link>
                   </TooltipTrigger>

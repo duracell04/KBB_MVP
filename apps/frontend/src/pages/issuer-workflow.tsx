@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -157,7 +157,7 @@ const IssuerWorkflow = () => {
         <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <div className="mb-8">
-            <Link to="/">
+            <Link href="/">
               <Button variant="ghost" className="gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Homepage

@@ -1,6 +1,6 @@
 import { TrendingUp, Building2, AlertCircle, Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -21,7 +21,7 @@ const Disconnect = () => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link to="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors inline-flex">
+                  <Link href="/resources#georgia-economy" className="text-accent hover:text-accent/80 transition-colors inline-flex">
                     <Info className="w-4 h-4" />
                   </Link>
                 </TooltipTrigger>
@@ -52,7 +52,7 @@ const Disconnect = () => {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Link to="/resources#georgia-sme-finance" className="text-accent hover:text-accent/80 transition-colors">
+                    <Link href="/resources#georgia-sme-finance" className="text-accent hover:text-accent/80 transition-colors">
                       <Info className="w-4 h-4" />
                     </Link>
                   </TooltipTrigger>

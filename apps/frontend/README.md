@@ -1,6 +1,6 @@
 # KBB Sparkle UI (Local Mockup)
 
-This folder contains the standalone Vite + React mockup that ships with the KBB MVP monorepo. It is fully self-contained and can be edited with any workflow you prefer.
+This folder now contains the standalone Next.js + React mockup that ships with the KBB MVP monorepo. It is fully self-contained and can be edited with any workflow you prefer.
 
 ## Prerequisites
 
@@ -15,21 +15,21 @@ pnpm install
 pnpm run frontend:dev
 ```
 
-This launches the dev server on http://localhost:5173 (proxied to port 8080 inside the Vite config).
+This launches the dev server on http://localhost:3000 (default Next.js dev port; override via `PORT`).
 
 ## Build
 
 ```bash
 pnpm run frontend:build
-pnpm run frontend:preview
+pnpm run frontend:preview # runs `next start`
 ```
 
 ## Tech stack
 
-- React 18
+- Next.js 15 (React 18 under the hood)
 - TypeScript
 - Tailwind CSS + shadcn/ui
-- Vite 5 with SWC
+- pnpm workspace tooling
 
 ## Editing tips
 

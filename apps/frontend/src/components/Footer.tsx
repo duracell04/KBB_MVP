@@ -1,5 +1,5 @@
 import { Github, FileText, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 
 const Footer = () => {
@@ -18,22 +18,22 @@ const Footer = () => {
             <h4 className="font-medium mb-4 text-white text-sm">Product</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link to={{ pathname: "/", hash: "#vision" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                <Link href={{ pathname: "/", hash: "vision" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
                   Vision
                 </Link>
               </li>
               <li>
-                <Link to={{ pathname: "/", hash: "#sakartvelo" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                <Link href={{ pathname: "/", hash: "sakartvelo" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
                   Sakartvelo
                 </Link>
               </li>
               <li>
-                <Link to={{ pathname: "/", hash: "#mechanism" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                <Link href={{ pathname: "/", hash: "mechanism" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
                   Mechanism
                 </Link>
               </li>
               <li>
-                <Link to={{ pathname: "/", hash: "#roadmap" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
+                <Link href={{ pathname: "/", hash: "roadmap" }} className="text-white/70 hover:text-[#F59E0B] transition-colors">
                   Roadmap
                 </Link>
               </li>
@@ -44,7 +44,7 @@ const Footer = () => {
             <h4 className="font-medium mb-4 text-white text-sm">Resources</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link to="/resources" className="text-white/70 hover:text-[#F59E0B] transition-colors flex items-center gap-2">
+                <Link href="/resources" className="text-white/70 hover:text-[#F59E0B] transition-colors flex items-center gap-2">
                   <BookOpen className="w-3.5 h-3.5" />
                   Research & Sources
                 </Link>
@@ -56,13 +56,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <Link to="/documentation" className="text-white/70 hover:text-[#F59E0B] transition-colors flex items-center gap-2">
+                <Link href="/documentation" className="text-white/70 hover:text-[#F59E0B] transition-colors flex items-center gap-2">
                   <FileText className="w-3.5 h-3.5" />
                   Documentation
                 </Link>
               </li>
-              <li><Link to="/issuer-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Issuer Demo</Link></li>
-              <li><Link to="/investor-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Investor Demo</Link></li>
+              <li><Link href="/issuer-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Issuer Demo</Link></li>
+              <li><Link href="/investor-workflow" className="text-white/70 hover:text-[#F59E0B] transition-colors">Investor Demo</Link></li>
             </ul>
           </div>
 

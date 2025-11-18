@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -193,7 +193,7 @@ const InvestorWorkflow = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <Link to="/">
+            <Link href="/">
               <Button variant="ghost" className="gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 Back to Homepage
@@ -380,7 +380,7 @@ const InvestorWorkflow = () => {
                   Book a joint issuer + investor dry-run to review exact documentation flows.
                 </p>
                 <Button className="w-full" asChild>
-                  <Link to="/documentation">View Playbook</Link>
+                  <Link href="/documentation">View Playbook</Link>
                 </Button>
               </div>
             </div>
