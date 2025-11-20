@@ -1,4 +1,4 @@
-import { ArrowRight, DollarSign, Shield, Coins } from "lucide-react";
+import { ArrowRight, Coins, Shield, Building2 } from "lucide-react";
 
 const Mechanism = () => {
   return (
@@ -7,35 +7,35 @@ const Mechanism = () => {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-4xl font-sans font-semibold text-white">
-              The Mechanism
+              How the rail works (Phase 1 posture)
             </h2>
             <p className="text-white/80 text-lg leading-relaxed">
-              How capital flows from investors to Georgian businesses
+              Cash stays on bank rails; the token is the registered mirror with ERC-3643 controls.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="border-l-4 border-l-[#F59E0B] pl-6 space-y-3">
               <div className="w-12 h-12 rounded-md bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center">
-                <Coins className="w-6 h-6 text-[#F59E0B]" />
+                <Building2 className="w-6 h-6 text-[#F59E0B]" />
               </div>
               <h3 className="text-xl font-medium text-white">
-                Businesses Offer Bonds
+                SME notes issued
               </h3>
               <p className="text-white/70 text-base leading-relaxed">
-                Revenue-sharing bonds with standardized terms and transparent servicing
+                Georgian-law dematerialised SME notes; Official Register in the registrar/CSD system.
               </p>
             </div>
 
             <div className="border-l-4 border-l-[#F59E0B] pl-6 space-y-3">
               <div className="w-12 h-12 rounded-md bg-[#F59E0B]/10 border border-[#F59E0B]/30 flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-[#F59E0B]" />
+                <Coins className="w-6 h-6 text-[#F59E0B]" />
               </div>
               <h3 className="text-xl font-medium text-white">
-                Investors Buy Globally
+                Funds via bank rails
               </h3>
               <p className="text-white/70 text-base leading-relaxed">
-                Professional investors worldwide purchase through familiar rails
+                Investors wire fiat; settlement references are matched; mint/transfer happens only after confirmed funds.
               </p>
             </div>
 
@@ -44,18 +44,19 @@ const Mechanism = () => {
                 <Shield className="w-6 h-6 text-[#F59E0B]" />
               </div>
               <h3 className="text-xl font-medium text-white">
-                Blockchain Handles Settlement
+                Token as mirror
               </h3>
               <p className="text-white/70 text-base leading-relaxed">
-                Automated, transparent settlement with instant record-keeping and compliance
+                ERC-3643 enforces whitelist, caps, and rectification rights; DLT state is reconciled and hashed against the Official Register.
               </p>
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-8">
-            <p className="text-white/90 text-lg text-center leading-relaxed max-w-3xl mx-auto">
-              <strong className="text-white font-semibold">Same economics as traditional revenue bonds.</strong> Revolutionary distribution and liquidity. The innovation isn't the instrument — it's the access.
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-center gap-3">
+            <p className="text-white/90 text-lg text-center leading-relaxed">
+              Same economics as traditional SME debt. The innovation is the supervised, transparent access rail.
             </p>
+            <ArrowRight className="w-6 h-6 text-[#F59E0B]" />
           </div>
         </div>
       </div>

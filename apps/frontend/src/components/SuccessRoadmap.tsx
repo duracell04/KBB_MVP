@@ -1,88 +1,59 @@
 import { Card } from "@/components/ui/card";
-import { Calendar, Building2, TrendingUp, Target } from "lucide-react";
+import { ShieldCheck, Share2, Globe2 } from "lucide-react";
 
 const SuccessRoadmap = () => {
   return (
     <section id="roadmap" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
+        <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-primary mb-4">
-            Success Roadmap
+            Roadmap: From pilot to macro rail
           </h2>
           <p className="text-lg text-muted-foreground">
-            Clear milestones on the path to transforming Georgian SME financing
+            How KBB evolves inside Georgia's financial architecture and what it signals to supervisors, DFIs, and regional issuers.
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <Card className="p-8 bg-card border border-border shadow-card transition-all hover:shadow-lg hover:border-primary/30">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-md bg-primary/5 border border-primary/20 flex items-center justify-center transition-all hover:bg-primary/10">
-                  <Calendar className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Year 1</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <Card className="p-8 bg-card border border-border shadow-card transition-all hover:shadow-lg hover:border-primary/30">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-md bg-primary/5 border border-primary/20 flex items-center justify-center">
+                <ShieldCheck className="w-6 h-6 text-primary" />
               </div>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-3xl font-bold text-primary mb-1 tabular-nums">10</div>
-                  <p className="text-sm text-muted-foreground">businesses onboarded</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-accent mb-1 tabular-nums">$5M</div>
-                  <p className="text-sm text-muted-foreground">capital raised</p>
-                </div>
-              </div>
-            </Card>
+              <h3 className="text-xl font-bold text-foreground">Phase 1: Institutional lab</h3>
+            </div>
+            <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+              <p>Georgian-law SME notes on ERC-3643; one host bank/broker; professional investors only.</p>
+              <p>DLT as operational mirror, registrar DB as Official Register; fiat-only settlement.</p>
+              <p>Goal: evidence on safety, transparency use, and AML/CFT efficacy inside existing perimeters.</p>
+            </div>
+          </Card>
 
-            <Card className="p-8 bg-card border border-accent/20 shadow-card transition-all hover:shadow-lg hover:border-accent/40">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center transition-all hover:bg-accent/20">
-                  <Building2 className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Year 3</h3>
+          <Card className="p-8 bg-card border border-accent/20 shadow-card transition-all hover:shadow-lg hover:border-accent/40">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-md bg-accent/10 border border-accent/30 flex items-center justify-center">
+                <Share2 className="w-6 h-6 text-accent" />
               </div>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-3xl font-bold text-primary mb-1 tabular-nums">100</div>
-                  <p className="text-sm text-muted-foreground">businesses onboarded</p>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-accent mb-1 tabular-nums">$100M</div>
-                  <p className="text-sm text-muted-foreground">capital raised</p>
-                </div>
-              </div>
-            </Card>
+              <h3 className="text-xl font-bold text-foreground">Phase 2: Rail and pools</h3>
+            </div>
+            <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+              <p>Multi-host issuance on a common ERC-3643/dematerialised rail; pooled SME exposure via funds/SPVs.</p>
+              <p>Capital-market deepening, originate-and-distribute for banks, cleaner DFI allocation into SME credit pools.</p>
+              <p>Wrappers for diaspora/foreign qualified investors keep retail protection in the wrapper's home regime.</p>
+            </div>
+          </Card>
 
-            <Card className="p-8 bg-card border border-border shadow-card transition-all hover:shadow-lg hover:border-primary/30">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-md bg-primary/5 border border-primary/20 flex items-center justify-center transition-all hover:bg-primary/10">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground">Year 5</h3>
+          <Card className="p-8 bg-card border border-border shadow-card transition-all hover:shadow-lg hover:border-primary/30">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-md bg-primary/5 border border-primary/20 flex items-center justify-center">
+                <Globe2 className="w-6 h-6 text-primary" />
               </div>
-              <div className="space-y-4">
-                <div>
-                  <div className="text-lg font-semibold text-foreground mb-2">
-                    Market Standard
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Standard financing option for Georgian SMEs
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          <Card className="p-8 bg-card border-l-4 border-l-accent border-t border-r border-b border-border shadow-lg">
-            <div className="flex items-start gap-4">
-              <Target className="w-8 h-8 text-accent flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="text-2xl font-semibold text-foreground mb-4">Real Success</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  When Georgian business growth isn't capital constrained. When entrepreneurs can focus on building great companies instead of searching for funding.
-                </p>
-              </div>
+              <h3 className="text-xl font-bold text-foreground">Phase 3: Signal and scale</h3>
+            </div>
+            <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+              <p>DLT register recognition under NBG criteria plus VA carve-out for tokenised financial instruments.</p>
+              <p>Digital Lari for DvP; unified-ledger style settlement with programmable money and assets.</p>
+              <p>Regional issuers on Georgian-law rails; external signal: regulated tokenised finance, not a crypto playground.</p>
             </div>
           </Card>
         </div>

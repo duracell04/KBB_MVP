@@ -9,29 +9,29 @@ const CTA = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-[#0D232D]">
-            Ready to Build the Future of Georgian Finance?
+            Build the supervised SME credit rail
           </h2>
           <p className="text-lg text-[#4B5563] max-w-2xl mx-auto">
-            Join us in unlocking dormant capital and transforming SME financing in Georgia
+            Help bring institutional capital into Georgian SMEs without breaking prudential guardrails.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
             <Card className="p-6 bg-card border border-border text-center shadow-card transition-all hover:shadow-lg hover:border-primary/30">
               <Code2 className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-foreground mb-2">Contribute a Slice</h3>
-              <p className="text-sm text-muted-foreground">Small PR + one test. Every contribution counts.</p>
+              <h3 className="text-lg font-medium text-foreground mb-2">Contribute a slice</h3>
+              <p className="text-sm text-muted-foreground">Small PR plus one test. Keep the rail tight and auditable.</p>
             </Card>
 
             <Card className="p-6 bg-card border border-accent/20 text-center shadow-card transition-all hover:shadow-lg hover:border-accent/40">
               <FileText className="w-10 h-10 text-accent mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-foreground mb-2">Add a Rail Adapter</h3>
-              <p className="text-sm text-muted-foreground">Parse evidence → produce settlement attestation.</p>
+              <h3 className="text-lg font-medium text-foreground mb-2">Add a rail adapter</h3>
+              <p className="text-sm text-muted-foreground">Parse evidence and produce settlement attestations tied to banking references.</p>
             </Card>
 
             <Card className="p-6 bg-card border border-border text-center shadow-card transition-all hover:shadow-lg hover:border-primary/30">
               <Users className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-foreground mb-2">Challenge Mechanics</h3>
-              <p className="text-sm text-muted-foreground">Invariants, rounding, record dates, failure paths.</p>
+              <h3 className="text-lg font-medium text-foreground mb-2">Challenge mechanics</h3>
+              <p className="text-sm text-muted-foreground">Invariants, rounding, record dates, failure paths—Phase 1 lab posture.</p>
             </Card>
           </div>
 
@@ -55,14 +55,14 @@ const CTA = () => {
             >
               <Link href="/documentation">
                 <FileText className="w-5 h-5 mr-2" />
-                Read Documentation
+                Read documentation
               </Link>
             </Button>
           </div>
 
           <div className="pt-8 space-y-2">
             <p className="text-sm text-muted-foreground">
-              Kartvelian Business Bonds | Led by Andro Kasrashvili, AKALabs | Building Financial Infrastructure for Georgia's Future
+              Kartvelian Business Bonds | State-aligned SME credit rail | Contact: compliance@kbb.ge
             </p>
           </div>
         </div>

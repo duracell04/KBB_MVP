@@ -7,10 +7,10 @@ const Architecture = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-primary mb-4">
-            Architecture at a Glance
+            Architecture at a glance
           </h2>
           <p className="text-lg text-muted-foreground">
-            Modular components designed for transparency and compliance
+            Modular, supervised components for transparent, bank-settled SME notes.
           </p>
         </div>
 
@@ -18,25 +18,25 @@ const Architecture = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <Card className="p-6 bg-card border border-border text-center">
               <Database className="w-12 h-12 text-accent mx-auto mb-4" />
-              <h3 className="font-medium text-foreground mb-2">Escrow / Rails</h3>
+              <h3 className="font-medium text-foreground mb-2">Escrow / rails</h3>
               <p className="text-sm text-muted-foreground">
-                Regulated institution or whitelisted stablecoin
+                Licensed bank rails (stablecoins only where permitted); Digital Lari optional later.
               </p>
             </Card>
 
             <Card className="p-6 bg-card border border-border text-center">
               <Shield className="w-12 h-12 text-primary mx-auto mb-4" />
-              <h3 className="font-medium text-foreground mb-2">Settlement Adapter</h3>
+              <h3 className="font-medium text-foreground mb-2">Settlement adapter</h3>
               <p className="text-sm text-muted-foreground">
-                Verify and attest settlement evidence
+                Verify and attest settlement evidence with MsgId/settlementRef.
               </p>
             </Card>
 
             <Card className="p-6 bg-card border border-border text-center">
               <Zap className="w-12 h-12 text-accent mx-auto mb-4" />
-              <h3 className="font-medium text-foreground mb-2">DvP Orchestrator</h3>
+              <h3 className="font-medium text-foreground mb-2">DvP orchestrator</h3>
               <p className="text-sm text-muted-foreground">
-                Coordinate mint/transfer upon funding
+                Coordinate mint/transfer only after confirmed funds.
               </p>
             </Card>
 
@@ -44,7 +44,7 @@ const Architecture = () => {
               <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="font-medium text-foreground mb-2">FixedIncomeNote</h3>
               <p className="text-sm text-muted-foreground">
-                Permissioned token with lifecycle events
+                ERC-3643 token with lifecycle events and rectification rights.
               </p>
             </Card>
           </div>
@@ -52,9 +52,9 @@ const Architecture = () => {
           <Card className="p-8 bg-card border border-border">
             <h3 className="text-xl font-medium text-foreground mb-6 flex items-center gap-2">
               <FileText className="w-6 h-6 text-accent" />
-              Flow Diagram
+              Flow diagram
             </h3>
-            
+
             <div className="relative">
               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="flex flex-col items-center text-center space-y-2 flex-1">
@@ -79,7 +79,7 @@ const Architecture = () => {
                     <Database className="w-8 h-8 text-primary" />
                   </div>
                   <p className="text-sm font-medium text-foreground">Escrow</p>
-                  <p className="text-xs text-muted-foreground">Regulated Rail</p>
+                  <p className="text-xs text-muted-foreground">Licensed bank rail</p>
                 </div>
 
                 <div className="flex items-center">
@@ -137,7 +137,7 @@ const Architecture = () => {
 
             <div className="mt-8 p-4 bg-secondary/50 rounded-lg border border-border">
               <p className="text-sm font-serif text-muted-foreground">
-                <strong className="text-foreground font-display">Core flows:</strong> Primary (DvP) for subscriptions, Servicing for coupons/redemptions—all with on-chain events containing <code className="text-accent font-mono">settlementRef</code> and <code className="text-accent font-mono">settlementNetwork</code> for deterministic reconciliation.
+                <strong className="text-foreground font-display">Core flows:</strong> Primary (DvP) for subscriptions; servicing for coupons/redemptions—both emit on-chain events with <code className="text-accent font-mono">settlementRef</code> and <code className="text-accent font-mono">settlementNetwork</code> for deterministic reconciliation to bank evidence.
               </p>
             </div>
           </Card>

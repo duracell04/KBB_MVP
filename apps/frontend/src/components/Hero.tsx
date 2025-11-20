@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Shield, FileCheck, Coins, Info } from "lucide-react";
+import { ArrowRight, Shield, Info } from "lucide-react";
 import Link from "next/link";
 import {
   Tooltip,
@@ -19,12 +19,11 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl font-sans font-semibold text-white leading-tight">
-            Token-registered, bank-settled private debt for supervised investors
+            Token-registered, bank-settled SME credit for supervised investors
           </h1>
 
           <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-            Bridging Georgian businesses with global capital using blockchain rails. Not replacing existing systems —
-            building where they can't reach.
+            Bridging Georgian SMEs with institutional capital on regulated rails. State-aligned modernization: keep prudential control, add programmable transparency where legacy pipes stop.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -58,8 +57,8 @@ const Hero = () => {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <p className="text-white text-base font-medium mb-1">Global capital seeking yields</p>
-              <p className="text-white/70 text-sm">Institutional investors looking for emerging markets</p>
+              <p className="text-white text-base font-medium mb-1">Global capital seeking EM yields</p>
+              <p className="text-white/70 text-sm">Institutional investors looking for transparent RWA exposure</p>
             </div>
 
             <div className="text-center p-6 rounded-lg bg-white/5 border border-white/10 shadow-sm transition-all hover:shadow-md hover:bg-white/10">
@@ -78,8 +77,8 @@ const Hero = () => {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <p className="text-white text-base font-medium mb-1">Georgian SMEs need capital</p>
-              <p className="text-white/70 text-sm">Proven businesses unable to access global markets</p>
+              <p className="text-white text-base font-medium mb-1">Georgian SMEs need term credit</p>
+              <p className="text-white/70 text-sm">Ready businesses, thin capital-market pipes</p>
             </div>
 
             <div className="text-center p-6 rounded-lg bg-white/5 border border-white/10 shadow-sm transition-all hover:shadow-md hover:bg-white/10">
@@ -98,8 +97,8 @@ const Hero = () => {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <p className="text-white text-base font-medium mb-1">2024 GDP growth</p>
-              <p className="text-white/70 text-sm">High-growth economy demands capital infrastructure</p>
+              <p className="text-white text-base font-medium mb-1">Growth demands infra</p>
+              <p className="text-white/70 text-sm">A bank-dominated economy needs a transparent SME credit rail</p>
             </div>
           </div>
         </div>

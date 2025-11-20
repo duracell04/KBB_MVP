@@ -14,10 +14,10 @@ const HowItWorks = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-primary mb-4">
-            Why Georgia, Why Now
+            Why Georgia, why now
           </h2>
           <p className="text-lg text-muted-foreground">
-            The perfect combination of opportunity, readiness, and impact
+            A small open economy can prove supervised tokenised debt faster than large markets.
           </p>
         </div>
 
@@ -30,10 +30,10 @@ const HowItWorks = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground mb-2">
-                    Government Support
+                    Supervisory ownership
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Actively seeking fintech innovation leadership
+                    NBG can run a contained lab: professional investors, one host bank/broker, fiat-only settlement, DLT as mirror.
                   </p>
                 </div>
               </div>
@@ -45,7 +45,7 @@ const HowItWorks = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <h3 className="text-lg font-medium text-foreground">
-                      High Growth Economy
+                      Growth needs infra
                     </h3>
                     <TooltipProvider>
                       <Tooltip>
@@ -61,7 +61,7 @@ const HowItWorks = () => {
                     </TooltipProvider>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    9.4% GDP growth in 2024, 9.8% in Q1 2025 demands capital infrastructure
+                    High growth and shallow capital markets make transparent SME credit rails macro-relevant.
                   </p>
                 </div>
               </div>
@@ -73,7 +73,7 @@ const HowItWorks = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <h3 className="text-lg font-medium text-foreground">
-                      Perfect Scale
+                      Right scale to prove
                     </h3>
                     <TooltipProvider>
                       <Tooltip>
@@ -89,7 +89,7 @@ const HowItWorks = () => {
                     </TooltipProvider>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Small enough to prove model ($33-34B GDP), large enough to matter globally
+                    Small enough to run a tight pilot; large enough for results to matter (regional signal, DFIs, diaspora).
                   </p>
                 </div>
               </div>
@@ -98,7 +98,7 @@ const HowItWorks = () => {
 
           <Card className="p-8 bg-primary text-primary-foreground border border-primary/80 shadow-lg">
             <div className="flex items-center gap-2 mb-6">
-              <h3 className="text-2xl font-semibold">The Impact</h3>
+              <h3 className="text-2xl font-semibold">Impact in plain terms</h3>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -116,14 +116,14 @@ const HowItWorks = () => {
               <div>
                 <div className="text-4xl font-bold text-accent mb-2 tabular-nums">1%</div>
                 <p className="text-primary-foreground/90 text-sm">
-                  Just 1% more foreign capital
+                  Just 1% more foreign capital into SME notes
                 </p>
               </div>
               <div className="text-3xl font-bold text-primary-foreground/40">=</div>
               <div>
                 <div className="text-4xl font-bold text-accent mb-2 tabular-nums">$300M</div>
                 <p className="text-primary-foreground/90 text-sm">
-                  Potential financing capacity for Georgian businesses
+                  Potential financing capacity via a transparent, supervised rail
                 </p>
               </div>
             </div>

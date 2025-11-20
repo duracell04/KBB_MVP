@@ -5,38 +5,38 @@ const Features = () => {
   const features = [
     {
       icon: Shield,
-      title: "DvP by Design",
-      description: "Tokens move only after verified funds. Delivery-versus-Payment is enforced at the protocol level.",
+      title: "DvP by design",
+      description: "Tokens move only after verified funds. Delivery-versus-Payment is enforced at the protocol seam.",
       color: "text-accent",
     },
     {
       icon: Database,
-      title: "Audit-Ready",
-      description: "Register events store bank references (ISO 20022 identifiers) for one-to-one matching with settlement evidence.",
+      title: "Audit-ready",
+      description: "Register events carry bank references (ISO 20022/MsgId) for deterministic matching to settlement evidence.",
       color: "text-primary",
     },
     {
       icon: Lock,
-      title: "Permissioned Transfers",
-      description: "Professional-only, whitelisted transfers. ERC-3643 compatible with eligibility, lockups, and jurisdictional controls.",
+      title: "Permissioned transfers",
+      description: "Professional-only, whitelisted addresses. ERC-3643 with eligibility, lockups, caps, and rectification powers.",
       color: "text-accent",
     },
     {
       icon: Scale,
-      title: "CSD-Aligned",
-      description: "Legal title remains in the Central Securities Depository (Phase-1). Token mirrors the official record.",
+      title: "Registrar-led",
+      description: "Official Register stays with the licensed registrar/CSD; the token is a mirrored audit trail with reconciliation and anchoring.",
       color: "text-primary",
     },
     {
       icon: Globe,
-      title: "Cross-Border Ready",
-      description: "Designed for Georgian SMEs accessing professional capital with international investor participation.",
+      title: "Prudent reach",
+      description: "Phase 1: institutional investors only. Phase 2: wrappers/diaspora via their home regimes; multi-host rail for banks/brokers.",
       color: "text-accent",
     },
     {
       icon: Zap,
-      title: "Regulated Rails",
-      description: "Cash settles on licensed banks or approved payment systems. SWIFT, SEPA, ACH, or permitted stablecoins.",
+      title: "Regulated rails",
+      description: "Cash settles on licensed banks. Digital Lari DvP is a Phase 3 option once supervisors are comfortable.",
       color: "text-primary",
     },
   ];
@@ -46,26 +46,26 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-[#0D232D] mb-4">
-            The Vision
+            The vision
           </h2>
           <p className="text-lg text-[#4B5563]">
-            Create a bridge between Georgian businesses and global capital using blockchain rails.
+            Build a supervised rail that lets Georgian SMEs access professional capital with ERC-3643 controls and bank-settled cash.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
           <Card className="p-8 bg-card border border-border">
             <h3 className="text-2xl font-medium text-foreground mb-6 text-center">
-              Think "Eurobond Market for SMEs"
+              State-aligned SME credit rail
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="w-16 h-16 rounded-md bg-primary/5 border border-primary/20 mx-auto mb-4 flex items-center justify-center transition-all hover:bg-primary/10 hover:border-primary/30">
                   <Shield className="w-8 h-8 text-primary" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">Standardized</h4>
+                <h4 className="font-medium text-foreground mb-2">Standardised</h4>
                 <p className="text-sm text-muted-foreground">
-                  Common bond structures that global investors understand
+                  Dematerialised SME notes with ERC-3643 eligibility and exposure caps
                 </p>
               </div>
 
@@ -73,9 +73,9 @@ const Features = () => {
                 <div className="w-16 h-16 rounded-md bg-accent/10 border border-accent/30 mx-auto mb-4 flex items-center justify-center transition-all hover:bg-accent/20 hover:border-accent/50">
                   <Zap className="w-8 h-8 text-accent" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">Liquid</h4>
+                <h4 className="font-medium text-foreground mb-2">Transparent</h4>
                 <p className="text-sm text-muted-foreground">
-                  Blockchain rails enable efficient secondary markets
+                  On-chain positions mirror the Official Register with bank references for deterministic recon
                 </p>
               </div>
 
@@ -83,9 +83,9 @@ const Features = () => {
                 <div className="w-16 h-16 rounded-md bg-primary/5 border border-primary/20 mx-auto mb-4 flex items-center justify-center transition-all hover:bg-primary/10 hover:border-primary/30">
                   <Globe className="w-8 h-8 text-primary" />
                 </div>
-                <h4 className="font-medium text-foreground mb-2">Accessible</h4>
+                <h4 className="font-medium text-foreground mb-2">Prudent reach</h4>
                 <p className="text-sm text-muted-foreground">
-                  Global reach without traditional infrastructure costs
+                  Phase 1: professional only; Phase 2: wrappers/diaspora; Phase 3: Digital Lari DvP + regional issuers
                 </p>
               </div>
             </div>
@@ -93,7 +93,7 @@ const Features = () => {
 
           <Card className="p-8 bg-card border border-border text-center shadow-card">
             <p className="text-lg text-muted-foreground leading-relaxed">
-              <strong className="text-foreground font-semibold">Not replacing existing systems</strong> — building where they can't reach. The innovation isn't the instrument — it's the <strong className="text-foreground">access</strong>.
+              <strong className="text-foreground font-semibold">Not replacing existing systems</strong> - building where legacy rails don't reach while keeping prudential control. The innovation is the supervised access layer, not speculative assets.
             </p>
           </Card>
         </div>

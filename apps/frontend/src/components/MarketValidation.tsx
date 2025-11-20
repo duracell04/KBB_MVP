@@ -1,24 +1,24 @@
 import { Card } from "@/components/ui/card";
-import { TrendingUp, Award, CheckCircle2 } from "lucide-react";
+import { Award, CheckCircle2 } from "lucide-react";
 
 const MarketValidation = () => {
   const validations = [
     {
       name: "Centrifuge",
       amount: "$500M+",
-      description: "tokenized assets",
+      description: "tokenized real-world assets",
       color: "text-accent",
     },
     {
       name: "Goldfinch",
       amount: "$100M+",
-      description: "emerging markets",
+      description: "emerging-market credit",
       color: "text-accent",
     },
     {
-      name: "Maple Finance",
+      name: "Maple",
       amount: "$2B+",
-      description: "crypto credit",
+      description: "on-chain credit rails",
       color: "text-accent",
     },
   ];
@@ -28,10 +28,10 @@ const MarketValidation = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-sans font-semibold text-primary mb-4">
-            Market Validation
+            Market validation
           </h2>
           <p className="text-lg text-muted-foreground">
-            The model works — proven by similar platforms globally
+            Proven RWA and credit platforms show institutional demand when controls and reporting are clear.
           </p>
         </div>
 
@@ -60,10 +60,10 @@ const MarketValidation = () => {
           <Card className="p-8 bg-card border-l-4 border-l-accent border-t border-r border-b border-border text-center shadow-lg">
             <div className="flex items-center justify-center gap-3 mb-4">
               <CheckCircle2 className="w-8 h-8 text-accent" />
-              <h3 className="text-2xl font-semibold text-foreground">First-Mover Opportunity</h3>
+              <h3 className="text-2xl font-semibold text-foreground">First-mover signal</h3>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Nobody's focused on Georgia. We have the chance to be the first to unlock this market and set the standard for emerging economy SME financing.
+              Georgia can be the supervised, regulator-aligned example for tokenised SME credit in an emerging market—distinct from unregulated crypto narratives.
             </p>
           </Card>
         </div>

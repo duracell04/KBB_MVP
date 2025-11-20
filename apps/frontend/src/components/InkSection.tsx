@@ -11,10 +11,9 @@ const InkSection = () => {
               Built for supervised rails, not speculation
             </h2>
           </div>
-          
+
           <p className="text-white/80 text-lg max-w-3xl leading-relaxed">
-            KBB keeps cash on regulated banking rails. Blockchain is used as a tamper-evident register 
-            so more Georgian SMEs can issue familiar notes to global investors.
+            Cash stays on licensed banking rails. ERC-3643 tokens provide a tamper-evident mirror and controls so more Georgian SMEs can issue familiar notes to professional investors.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
@@ -23,7 +22,7 @@ const InkSection = () => {
                 <span className="text-[#F59E0B] font-bold text-4xl tabular-nums">+$200M</span>
               </div>
               <p className="text-white/90 text-base">
-                Potential foreign capital from just 1% more cross-border investment
+                Potential foreign capital from just 1% more cross-border investment into tokenised SME notes
               </p>
             </div>
 
@@ -33,14 +32,14 @@ const InkSection = () => {
                 <span className="text-white font-semibold text-xl">Real-economy impact</span>
               </div>
               <p className="text-white/80 text-base">
-                Every bond finances actual Georgian businesses: factories, exporters, service companies
+                Every note finances real Georgian businesses; transparency and DvP discipline reduce friction and risk.
               </p>
             </div>
           </div>
 
           <div className="pt-6 border-t border-white/10">
             <p className="text-white/60 text-sm font-mono">
-              Cash settlement: SWIFT · SEPA · ACH · Licensed stablecoins
+              Cash settlement: SWIFT | SEPA | ACH | local rails (stablecoins only where permitted; Digital Lari later)
             </p>
           </div>
         </div>

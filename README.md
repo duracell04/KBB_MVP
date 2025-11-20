@@ -1,31 +1,31 @@
-# KBB_MVP — Token-registered private debt, cash-settled on regulated rails (MVP)
+# KBB_MVP - Token-registered private debt, cash-settled on regulated rails (MVP)
 [![Build](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml/badge.svg)](https://github.com/duracell04/KBB_MVP/actions/workflows/ci.yml)
 
 **Keywords:** tokenized securities, private debt, DvP, ISO 20022, ERC-3643, permissioned transfers, reconciliation, settlement evidence, stablecoin (whitelisted), escrow, audit-ready.
 
-**What:** A fixed-income note where cash settles on **regulated rails** (escrow at a licensed institution or—where permitted—whitelisted stablecoins). A **permissioned token** is the **register & distribution** layer.  
-**Why:** Make private debt programmable & auditable without pretending payments are on-chain.
+**What:** A fixed-income note where cash settles on **regulated rails** (escrow at a licensed institution or, where permitted, whitelisted stablecoins). A **permissioned token** is the **register and distribution** layer.  
+**Why:** Modernise SME credit with programmability and auditability without breaking prudential guardrails; the roadmap shows how this evolves from a contained pilot into a macro-relevant rail.
 
 ---
 
 ## TL;DR
 
-- **Instrument:** `FixedIncomeNote` (ERC-20-like supply = face value units; **ERC-3643-compatible**, permissioned transfers).  
-- **Issuance:** **Delivery-versus-Payment (DvP)** only — mint/transfer **after** verified settlement evidence.  
-- **Servicing:** Coupons/redemptions wired off-chain; **on-chain events** carry `settlementRef` / `settlementNetwork` for deterministic reconciliation to statements or tx hashes.
+- **Instrument:** `FixedIncomeNote` (ERC-20-like supply equals face value units; **ERC-3643-compatible**, permissioned transfers).  
+- **Issuance:** **Delivery-versus-Payment (DvP)** only - mint/transfer **after** verified settlement evidence.  
+- **Servicing:** Coupons/redemptions wired off-chain; **on-chain events** carry `settlementRef` and `settlementNetwork` for deterministic reconciliation to statements or transaction hashes.
 
 ---
 
 ## The KBB story (2-minute read)
 
-**KBB = Kartvelian Business Bonds.** A path for Georgian SMEs to access "**Eurobond-like**" financing sized for small/mid tickets: standardized terms, predictable servicing, and professional investors — with operational truth on **regulated cash rails** and a tokenized **register & distribution** layer for transparency and control.
+**KBB = Kartvelian Business Bonds.** In a small, open, bank-dominated market, KBB is state-aligned modernization of SME credit: legally orthodox dematerialised securities, technologically modern ERC-3643 controls, and operational truth on regulated cash rails. It is a new intermediation layer between conservative banking regulation and flexible capital-markets rails that attracts institutional capital without compromising prudence.
 
 - **Who benefits:**  
-  • SMEs with real revenue that lack efficient cross-border credit routes.  
-  • Professional allocators who want predictable coupons and audit-ready trails.  
-  • Operators (issuer/transfer agent) who need DvP discipline and clean reconciliations.
+  - Georgian SMEs with revenue but limited cross-border credit access.  
+  - Professional investors wanting transparent, standardised exposure to SME credit with audit-ready trails.  
+  - Operators (issuer/transfer agent/registrar) needing DvP discipline, eligibility enforcement, and clean reconciliations.
 
-> **Design principle:** **Cash settles on regulated rails.** Tokens exist to **register ownership, gate eligibility/lockups, and emit machine-readable lifecycle events** keyed to the same references used by banking or (where permitted) stablecoin rails.
+> **Design principle:** **Cash settles on regulated rails.** Tokens exist to **register ownership, gate eligibility/lockups/caps, and emit machine-readable lifecycle events** keyed to the same references used by banking or (where permitted) stablecoin rails. `ROADMAP.md` explains how this moves from a supervised pilot to Digital Lari DvP, DLT register recognition, and regional issuance.
 
 ---
 
@@ -43,8 +43,8 @@ flowchart LR
 
 **Core flows**
 
-* **Primary (DvP):** Investor funds on a supported rail → adapter attests → orchestrator settles → `SubscriptionSettled(...)` with the same reference identifiers.
-* **Servicing:** Escrow wires coupons/redemptions → token emits `CouponPaid(...)` / `RedemptionPaid(...)` including identical references → deterministic recon.
+* **Primary (DvP):** Investor funds on a supported rail + adapter attests + orchestrator settles + `SubscriptionSettled(...)` with the same reference identifiers.  
+* **Servicing:** Escrow wires coupons/redemptions + token emits `CouponPaid(...)` / `RedemptionPaid(...)` including identical references + deterministic reconciliation.
 
 ---
 
@@ -61,7 +61,7 @@ settlementNetwork: e.g., "ISO20022" | "SWIFT" | "SEPA" | "ACH" | "FPS" | "ONCHAI
 **Accrual (ACT/360, example)**
 
 ```text
-accrual = notional × (couponRateBps / 10_000) × (days / 360)
+accrual = notional x (couponRateBps / 10_000) x (days / 360)
 ```
 
 ---
@@ -71,8 +71,9 @@ accrual = notional × (couponRateBps / 10_000) × (days / 360)
 ```text
 contracts/  -> Solidity stubs (compiles): FixedIncomeNote, DayCount, interfaces
 test/       -> one passing Foundry test (keeps CI green early)
-ops/        -> DvP & reconciliation stubs (no heavy deps; TS/Py-ready)
+ops/        -> DvP and reconciliation stubs (no heavy deps; TS/Py-ready)
 docs/       -> 1-page architecture overview (rail-agnostic)
+ROADMAP.md  -> phased regulatory/infra plan (pilot -> rail -> Digital Lari/DLT register)
 assets/     -> diagrams (Mermaid)
 apps/frontend -> Vite + Tailwind mockup (desktop/mobile, pnpm workspace package)
 ```
@@ -81,7 +82,7 @@ apps/frontend -> Vite + Tailwind mockup (desktop/mobile, pnpm workspace package)
 
 ## Try it locally (5 min)
 
-> Prereq: Foundry — [https://book.getfoundry.sh/](https://book.getfoundry.sh/)
+> Prereq: Foundry - [https://book.getfoundry.sh/](https://book.getfoundry.sh/)
 
 ```bash
 ./scripts/demo.sh
@@ -112,29 +113,30 @@ pnpm run frontend:preview
 ### Validate event structure
 ```bash
 pnpm run validate:events
-# → writes out/events.validation.json
+# writes out/events.validation.json
 ```
 
 ### 5-minute demo
 
 ```bash
-./scripts/demo.sh   # builds & tests contracts, runs rail-agnostic reconciliation
+./scripts/demo.sh   # builds and tests contracts, runs rail-agnostic reconciliation
 ```
 
 ---
 
 ## Why this MVP matters
 
-* **Operational truth:** DvP & reconciliation are core, not bolted on.
-* **Eligibility by default:** Permissioned transfers; lockups/jurisdictions enforceable at the token seam.
-* **Audit-ready:** Event fields mirror the same identifiers rails use (e.g., ISO 20022 `MsgId/UETR`) for deterministic joins.
+* **Operational truth:** DvP and reconciliation are core, not bolted on.  
+* **Eligibility by default:** Permissioned transfers; lockups/jurisdictions enforceable at the token seam.  
+* **Audit-ready:** Event fields mirror the same identifiers rails use (for deterministic joins to statements or hashes).  
+* **Macro fit:** Built for a small open economy to add a transparent SME credit rail without compromising prudential control.
 
 ---
 
 ## How to collaborate
 
-* **Contribute a slice:** small PR + one test.
-* **Add a rail adapter:** parse evidence → produce `(amount, currency, valueDate, settlementRef, settlementNetwork)`.
+* **Contribute a slice:** small PR plus one test.  
+* **Add a rail adapter:** parse evidence and emit `(amount, currency, valueDate, settlementRef, settlementNetwork)`.  
 * **Challenge mechanics:** invariants, rounding, record dates, failure paths.
 
-See `VISION.md` for intent and `ROADMAP.md` for next checkpoints.
+See `ROADMAP.md` for phased regulatory/infra steps.
